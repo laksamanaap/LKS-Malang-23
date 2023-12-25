@@ -1,0 +1,189 @@
+
+:root {
+    --white: #ffffff;
+    --black: #000000;
+    --primary: #ffb400;
+    --secondary: #0093e8;
+    --tertinary: #aaaaaa;
+}
+
+/* Font Watchword */
+@font-face {
+    font-family: 'Watchword-regular';
+    src: url('font/Watchword_regular_demo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Watchword-bold';
+    src: url('font/Watchword_bold_demo.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Font Fabrif */
+@font-face {
+    font-family: 'Fabrif';
+    src: url('font/fabrik.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Fabrif', sans-serif !important;    
+}
+
+/* Custom Element */
+
+.btn-primary {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+}
+
+.btn-outline-primary {
+    border-color: var(--primary) !important;
+    color: var(--black) !important;
+    border-width: 2px !important;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary) !important;
+    border-color: var(--primary) !important;
+    color: var(--white) !important;
+}
+
+.btn-secondary {
+    background-color: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+}
+
+/* Custom Element */
+
+/* Navbar */
+
+#navbar {
+    height: 120px;
+    background-color: var(--white);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);    
+}
+
+#navbar .button__right {
+    width: 100px;
+}
+
+
+/* Hero */
+
+#hero {
+    margin-top: 84px !important;
+}
+
+#hero .carousel-inner {
+    border-radius: 24px !important;
+}
+
+#hero .carousel-inner .carousel-item .carouse-inner-text {
+    font-family: 'Watchword-regular', sans-serif !important;
+    z-index: 10;
+    color: var(--white);
+    font-size: 48px;
+    top: 25%;
+    left: 13%;
+    max-width: 900px;
+    text-align: center;
+}
+
+#hero .carousel-inner .carousel-item .carouse-inner-text--bold {
+   font-weight: bold;
+}
+
+#hero .carousel-inner .carousel-item img {
+    border-radius: 24px;
+    height: 465px;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(70%);
+}
+
+#hero .carousel-indicators li {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background-color: rgba(255, 180, 0, 0.9);
+}
+
+#hero .carousel-indicators li.active {
+    background-color: var(--primary) !important;
+}
+
+/* Campus */
+
+#campus {
+    margin-top: 84px;
+}
+
+#campus .campus-header {
+    font-family: 'Watchword-regular', sans-serif !important;
+}
+
+#campus .campus-header--title {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+#campus .campus-header--sub {
+    color: var(--tertinary);
+}
+
+#campus .card-campus {
+    font-family: 'Watchword-regular', sans-serif !important;
+    border: none !important;
+}
+
+#campus .card-campus img {
+    object-fit: cover;
+    object-position: center;
+    border-radius: 24px;
+    filter: brightness(95%);
+    max-height: 215px;
+}
+
+#campus .card-campus .card-body {
+    padding: unset !important;
+}
+
+#campus .card-campus .card-title {
+    font-weight: 700;
+
+}
+
+#campus .card-campus .link {
+    color: var(--primary) !important;
+    text-decoration: none !important;
+    font-weight: 700;
+}
+
+#campus .card-campus.card-badge {
+    font-family: "Watchword-bold", sans-serif !important;
+    position: absolute;
+    top: 4%;
+    left: 4%;
+    padding: 2px;
+    background-color: var(--primary) !important;
+    color: var(--white);
+    border-radius: 8px;
+    min-width: 70px;
+    font-size: 12px;
+}
+
+#campus .card-campus .card-text {
+    color: var(--black);
+}
+
+#campus .card-text-dot {
+    font-family: 'Fabrik', sans-serif !important;
+}
+
+
+/* Majority */
