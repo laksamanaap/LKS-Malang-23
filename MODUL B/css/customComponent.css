@@ -1,0 +1,108 @@
+
+:root {
+    --primary: #fd8712 !important;
+    --primary-color-dark: #d56a00 !important;
+    --primary-color-light: ffc600 !important;
+    --secondary-color: #878787 !important;
+    --secondary-color-dark: #656565 !important;
+    --black: #000000;
+    --white: #ffffff;
+}
+
+
+/* Navbar */
+
+#navbar {
+    padding-top: 30px;
+    padding-bottom: 50px;
+}
+
+#navbar .navbar-brand {
+    font-size: 24px;
+}
+
+#navbar .navbar-brand.active {
+    color: var(--primary);
+}
+
+#navbar .nav-link,
+.navbar-brand {
+    color: var(--black);
+}
+
+#navbar .nav-link:hover {
+    color: var(--primary);
+}
+
+#navbar .nav-link.active {
+    color: var(--primary);
+}
+
+#navbar .nav-link.auth {
+    padding: unset;
+}
+
+#navbar .navbar-toggler {
+    border: none;
+}
+
+#navbar .navbar-toggler:focus {
+    box-shadow: unset;
+}
+
+#navbar .navbar-toggler-icon,
+#navbar .navbar-toggler-icon::before,
+#navbar .navbar-toggler-icon::after {
+    display: block;
+    width: 28px;
+    height: 6px;
+    background-color: var(--black);
+    border-radius: 3px;
+}
+
+#navbar .navbar-toggler-icon::before {
+    content: "";
+    width: 34px;
+    transform: translate(-6px, -10px);
+}
+
+#navbar .navbar-toggler-icon::after {
+    content: "";
+    width: 20px;
+    transform: translate(8px, 4px);
+}
+
+
+.btn {
+    border-radius: 14px !important;
+}
+
+.btn-primary {
+    padding: 16px 36px !important;
+    background-color: var(--primary) !important;
+    border: var(--primary) !important;
+}
+
+.btn-primary:hover{
+    background-color: var(--primary-color-dark) !important;
+    border: var(--primary-color-dark) !important;
+}
+
+.btn-primary:focus {
+    box-shadow: unset !important;
+}
+
+.btn-secondary {
+    padding: 16px 36px !important;
+    background-color: var(--secondary-color) !important;
+    border: var(--secondary-color) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--secondary-color-dark) !important;
+    border: var(--secondary-color-dark) !important;
+}
+
+.btn-secondary:focus {
+    box-shadow: unset !important;
+}
