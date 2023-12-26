@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banteng Shooters</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+</head>
+<body class="menu" id="body">
+        <div class="d-flex flex-column w-100 align-items-center justify-content-center">
+            <img src="assets/pngwing.com (13).png" class="logo" alt="">
+            <div class="box box-1">
+                <h1>Welcome</h1>
+                <ul>
+                    <li>Input Name</li>
+                    <li>Choose Background</li>
+                    <li>Enjoy</li>
+                </ul>
+                <button id="start" class="btn btn-primary form-control">
+                    Start
+                </button>
+            </div> 
+
+            <div class="box box-2 mt-4 mb-4">
+                <div class="input-wrap">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="inputName" name="name" class="form-control" autofocus>
+                    </div>
+                </div>
+                <div class="bg-wrap mt-4">
+                    <img src="/assets/education-pattern.jpg" alt="" class="bg bg-1" />
+                    <img src="/assets/download.jpg" alt="" class="bg bg-2" />
+                    <img src="/assets/images.jpeg" alt="" class="bg bg-3" />
+                    <img src="/assets/thumb900.jpg" class="bg bg-4" />
+
+                </div>
+                <button id="play" class="btn btn-success form-control mb-4 mt-4">Play</button>
+            </div>
+
+            <div id="highscore" class="highscore mt-4">
+                <table class="w-100 table-bordered table-striped" id="table">
+                    <tr>
+                        <th>No</th>
+                        <th>Name</th>
+                        <th>Score</th>
+                        <th>Time</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td id="username"></td>
+                        <td id="high-score"></td>
+                        <td id="time"></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="d-flex game-wrapper">
+                <div class="game row p-5">
+                    <div class="col-4">
+                        <button id="quit" class="btn btn-danger">Quit</button>
+                        <div class="sidebar mt-5">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <h3>Name</h3>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <h3>:</h3>    
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <span id="name-sidebar"></span>
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <h3>Score</h3>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <h3>:</h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <span id="score-sidebar">0</span>
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>
+                                            <h3>Time</h3>
+                                        </strong>
+                                    </td>
+                                    <td>
+                                        <h3>:</h3>
+                                    </td>
+                                    <td>
+                                        <h3>
+                                            <span id="time-sidebar">00:00</span>
+                                        </h3>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <h3 id="heart-sidebar">
+                                            <i class="fas fa-heart" id="heart1"></i>
+                                            <i class="fas fa-heart" id="heart2"></i>
+                                            <i class="fas fa-heart" id="heart3"></i>
+                                            <i class="fas fa-heart" id="heart4"></i>
+                                            <i class="fas fa-heart" id="heart5"></i>
+                                        </h3>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="logo-sidebar">
+                                <img src="assets//pngwing.com (13).png" alt="">
+                                Shooting Game
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <canvas id="canvas" class="game-canvas"></canvas>
+                        <h1 id="cooldown"></h1>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    <script src="script.js"></script>
+    <script src="assets/jquery-3.7.1.min.js"></script>    
+    <script>
+        $(document).ready(() => {
+            // Inisialisasi
+            initialize();
+
+            function initialize() {
+                $('.box-2').hide();
+                $('.game').hide();
+
+                // Change the background by clicking the image
+                $('.bg').click(function () {
+                    var backgroundImage = $(this).attr('src');
+                    $('body').css('background-image', 'url(' + backgroundImage + ')');
+                });
+            }
+
+            // Start Game
+            $('#start').click(() => {
+                $('.box-1').hide();
+                $('.box-2').show();
+                $('.form-control').focus();
+            });
+
+            // Play Game
+            $('#play').click(() => {
+                if ($('#inputName').val() == '' && localStorage.getItem('name') == null) {
+                    alert('Nama wajib diisi!')
+                } else {
+                    $('.background').hide();
+                    $('.highscore').hide();
+                    $('.box-2').hide();
+                    $('.logo').hide();
+                    $('.body').removeClass();
+                    $('.game').show();
+
+                    if ($('#inputName').val() != '') {
+                        localStorage.setItem('name', $('#inputName').val())
+                    }
+
+                    startTimer(); 
+
+                    $('#name-sidebar').empty();
+                    $('#name-sidebar').append(localStorage.getItem('name'));
+                }
+            })
+
+            $('#quit').click(() => {
+                localStorage.removeItem('name');
+                window.location.reload();
+            })
+        });
+    </script>
+</body>
+</html>

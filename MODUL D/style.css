@@ -1,0 +1,137 @@
+body {
+    background-color: aqua !important;
+    margin: 0 auto;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-image 1s ease, opacity 1s ease;
+}
+
+.box.box-1 {
+    border: 5px solid black;
+    width: 300px;
+    height: 250px;
+    padding: 20px;
+}
+
+.box h1 {
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    width: 200px;
+    height: 200px;
+    animation: rotate 4s infinite;
+    margin-bottom: 30px;
+}
+
+
+.box.box-2 {
+    border: 5px solid black;
+    width: 300px;
+    height: 250px;
+    padding: 20px;
+}
+
+.box.box-2 .bg-wrap {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.box.box-2 img {
+    width: 55px;
+}
+
+.box.box-2 .bg-wrap {
+    text-align: center;
+}
+
+.bg-1,
+.bg-2,
+.bg-3,
+.bg-4 {
+    cursor: pointer;
+}
+
+.bg-1 {
+    background-image: url("assets/education-pattern.jpg");
+}
+
+.bg-2 {
+    background-image: url("assets/download.jpg");
+}
+
+.bg-3 {
+    background-image: url("assets/images.jpeg");
+}
+
+.bg-4 {
+    background-image: url("assets/thumb900.jpg");
+}
+
+.sidebar {
+    width: fit-content;
+    height: 500px;
+    border: 3px solid green;
+    padding: 30px;
+}
+
+.logo-sidebar {
+    margin-top: 70px;
+    margin-left: 20px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.logo-sidebar img {
+    width: 300px;
+    height: 200px;
+}
+
+h3 span {
+    margin-left: 30px;
+}
+
+.fa-heart,
+.fa-heart-o {
+    color: red !important;
+}
+
+.hidden {
+    display: none;
+}
+
+#highscore {
+    width: 23%;
+}
+
+.game-wrapper {
+    width: 100vw;
+}
+
+
+@keyframes rotate {
+    
+    0% {
+        transform: rotateZ(0deg);
+    }
+
+    40% {
+        transform: rotateZ(30deg);
+    }
+
+    80% {
+        transform: rotateZ(-30deg);
+    }
+
+    100% {
+        transform: rotateZ(0deg);
+    }
+}
