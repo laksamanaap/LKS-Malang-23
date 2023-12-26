@@ -1,13 +1,433 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --white: #ffffff;
+  --black: #000000;
+  --primary: #ffb400;
+  --danger: rgb(202, 0, 0);
+  --secondary: #0093e8;
+  --tertinary: #aaaaaa;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* Font Watchword */
+@font-face {
+  font-family: 'Watchword-regular';
+  src: url('./assets/font/Watchword_regular_demo.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Watchword-bold';
+  src: url('./assets/font/Watchword_bold_demo.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Font Fabrif */
+@font-face {
+  font-family: 'Fabrif';
+  src: url('./assets/font/fabrik.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+body {
+  font-family: 'Fabrif', sans-serif !important;
+}
+
+/* Custom Element */
+
+.btn-primary {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+}
+
+.btn-outline-primary {
+  border-color: var(--primary) !important;
+  color: var(--black) !important;
+  border-width: 2px !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary) !important;
+  border-color: var(--primary) !important;
+  color: var(--white) !important;
+}
+
+.btn-secondary {
+  background-color: var(--secondary) !important;
+  border-color: var(--secondary) !important;
+}
+
+/* Custom Element */
+
+/* Navbar */
+
+#navbar {
+  height: 120px;
+  background-color: var(--white);
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.1);
+}
+
+#navbar .button__right {
+  width: 100px;
+}
+
+#navbar .navbar-toggler {
+  border: none !important;
+}
+
+#navbar .navbar-toggler:focus {
+  box-shadow: unset;
+}
+
+#navbar .navbar-toggler-icon,
+#navbar .navbar-toggler-icon::before,
+#navbar .navbar-toggler-icon::after {
+  display: block;
+  width: 28px;
+  height: 6px;
+  background-color: var(--black);
+  border-radius: 3px;
+}
+
+#navbar .navbar-toggler-icon::before {
+  content: "";
+  width: 34px;
+  transform: translate(-6px, -10px);
+}
+
+#navbar .navbar-toggler-icon::after {
+  content: "";
+  width: 20px;
+  transform: translate(8px, 4px);
+}
+
+#navbar .logo-container {
+  margin-right: 100px;
+}
+
+.card-text-dot {
+  font-family: "Fabrik", sans-serif !important;
+}
+
+/* Hero */
+
+#hero {
+  margin-top: 72px !important;
+}
+
+#hero .carousel-inner {
+  border-radius: 24px !important;
+}
+
+#hero .carousel-inner .carousel-item .carouse-inner-text {
+  font-family: 'Watchword-regular', sans-serif !important;
+  z-index: 10;
+  color: var(--white);
+  font-size: 48px;
+  top: 25%;
+  left: 13%;
+  max-width: 900px;
+  text-align: center;
+}
+
+#hero .carousel-inner .carousel-item .carouse-inner-text--bold {
+  font-weight: bold;
+}
+
+#hero .carousel-inner .carousel-item img {
+  border-radius: 24px;
+  height: 465px;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(70%);
+}
+
+#hero .carousel-indicators li {
+  width: 10px;
+  height: 10px;
+  border-radius: 100%;
+  background-color: rgba(255, 180, 0, 0.9);
+}
+
+#hero .carousel-indicators li.active {
+  background-color: var(--primary) !important;
+}
+
+/* Campus */
+
+#campus {
+  margin-top: 84px;
+}
+
+#campus .campus-header {
+  font-family: 'Watchword-regular', sans-serif !important;
+}
+
+#campus .campus-header--title {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+#campus .campus-header--sub {
+  color: var(--tertinary);
+}
+
+#campus .card-campus {
+  font-family: 'Watchword-regular', sans-serif !important;
+  border: none !important;
+}
+
+#campus .card-campus img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 24px;
+  filter: brightness(95%);
+  max-height: 215px;
+}
+
+#campus .card-campus .card-body {
+  padding: unset !important;
+}
+
+#campus .card-campus .card-title {
+  font-weight: 700;
+
+}
+
+#campus .card-campus .link {
+  color: var(--primary) !important;
+  text-decoration: none !important;
+  font-weight: 700;
+}
+
+#campus .card-campus.card-badge {
+  font-family: "Watchword-bold", sans-serif !important;
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  padding: 2px;
+  background-color: var(--primary) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+#campus .card-campus .card-text {
+  color: var(--black);
+}
+
+#campus .card-text-dot {
+  font-family: 'Fabrik', sans-serif !important;
+}
+
+
+/* CTA */
+
+#CTA {
+  margin-top: 84px;
+}
+
+#CTA .cta-wrapper {
+  margin: 0 auto;
+  background-color: var(--primary);
+  border-radius: 24px;
+}
+
+#CTA .cta-top-wrapper {
+  padding: 40px;
+}
+
+#CTA .cta-text {
+  font-size: 35px;
+  font-family: "Watchword-bold", sans-serif !important;
+  color: var(--white);
+}
+
+#CTA img {
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  max-width: 650px;
+  max-height: 320px;
+  border-top-right-radius: 24px;
+  border-bottom-right-radius: 24px;
+}
+
+#CTA .btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  max-width: 195px;
+}
+
+#CTA .cta-right {
+  padding: unset !important;
+}
+
+
+/* Footer */
+
+#footer {
+  margin-top: 132px;
+  font-family: "Watchword-regular", sans-serif !important;
+}
+
+#footer .footer-wrapper {
+  padding-top: 84px;
+  background-color: #fcfcfc;
+}
+
+#footer .footer-wrapper-left-text {
+  max-width: 450px;
+}
+
+#footer .footer-wrapper-right-title {
+  font-family: "Watchword-bold", sans-serif !important;
+}
+
+#footer .footer-wrapper-right-sub {
+  text-decoration: none;
+  color: var(--black);
+}
+
+#footer .footer-bottom {
+  color: var(--tertinary);
+}
+
+
+
+/* == Detail == */
+
+#detail {
+  font-family: "Watchword-regular", sans-serif !important;
+  margin-top: 72px;
+}
+
+/* Detail Images */
+
+#detail img {
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(90%);
+}
+
+#detail .detail-images--1 {
+  border-top-left-radius: 24px;
+  border-bottom-left-radius: 24px;
+  max-width: 680px;
+  max-height: 340px;
+}
+
+#detail .detail-images--2,
+#detail .detail-images--3,
+#detail .detail-images--4,
+#detail .detail-images--5 {
+  width: 300px;
+  height: 100%;
+}
+
+#detail .detail-images-wrapper-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+/* Detail short desc */
+
+#detail .detail-short-desc {
+  margin-top: 56px;
+}
+
+#detail .detail-short-desc-title {
+  font-family: "Watchword-bold", sans-serif !important;
+  font-size: 24px;
+}
+
+#detail .card-campus.card-badge {
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: var(--primary) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+/* Detail desc */
+
+#detail .detail-desc {
+  margin-top: 64px;
+}
+
+#detail .detail-desc-title {
+  font-size: 18px;
+  font-family: "Watchword-bold", sans-serif !important;
+}
+
+#detail .detail-desc-sub {
+  font-size: 18px;
+  color: var(--tertinary);
+}
+
+#detail .detail-contact-item {
+  color: var(--tertinary);
+}
+
+#detail .detail-contact-item-active {
+  color: var(--primary);
+}
+
+
+/* == Register == */
+
+#register {
+  font-family: "Watchword-regular", sans-serif !important;
+}
+
+#register .register-card {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* == Submission == */
+
+#submission {
+  margin-top: 72px;
+}
+
+#submission .card {
+  width: 300px;
+}
+
+#submission .card-status {
+  font-size: 16px;
+}
+
+#submission .card-status.success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: var(--primary) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+#submission .card-status.rejected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: var(--danger) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
 }
