@@ -45,8 +45,10 @@
                             </button>
                         </form>
                         <ul class="d-flex gap-4 navbar-nav mb-2 mb-lg-0">
-                            <div class="button__right btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Daftar</div>
-                            <div class="button__right btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Masuk</div>
+                            <a class="button__right btn btn-outline-primary" href="register.html">
+                                Daftar
+                            </a>
+                            <a class="button__right btn btn-primary" href="login.html">Masuk</a>
                         </ul>
                     </div>
 
@@ -56,6 +58,7 @@
     </nav>
 
     <main>
+        <!-- Hero -->
         <div class="container hero" id="hero">
             <div id="heroCarousel" class="carousel slide">
                 <div class="carousel-indicators gap-2">
@@ -76,15 +79,30 @@
                         <img src="assets/Foto Mahasiswa/Mahasiswa 01.jpg" class="d-block w-100 " alt="...">
                     </div>
                     <div class="carousel-item">
+                        <div class="carouse-inner-text position-absolute">
+                            <span>
+                                <span class="carouse-inner-text--bold">Persiapkan kuliah </span>anda dengan <span
+                                    class="carouse-inner-text--bold">mudah,</span> Raih <span class="carouse-inner-text--bold">masa depan</span>
+                                cerah bersama <span class="carouse-inner-text--bold"> KampusMalang</span>
+                            </span>
+                        </div>
                         <img src="assets/Foto Mahasiswa/Mahasiswa 02.jpg" class="d-block w-100 " alt="...">
                     </div>
                     <div class="carousel-item">
+                        <div class="carouse-inner-text position-absolute">
+                            <span>
+                                <span class="carouse-inner-text--bold">Persiapkan kuliah </span>anda dengan <span
+                                    class="carouse-inner-text--bold">mudah,</span> Raih <span class="carouse-inner-text--bold">masa depan</span>
+                                cerah bersama <span class="carouse-inner-text--bold"> KampusMalang</span>
+                            </span>
+                        </div>
                         <img src="assets/Foto Mahasiswa/Mahasiswa 03.jpg" class="d-block w-100 " alt="...">
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- Campus -->
         <div class="container campus" id="campus">
         <div class="campus-header d-flex justify-content-between align-items-center">
             <div class="d-flex flex-column gap-1">
@@ -108,7 +126,7 @@
                                 Politeknik negeri malang merupakan perguruan tinggi favorit di kota malang yang menghasilkan lulusan diploma
                                 berkualitas tinggi dan berkopet<span class="card-text-dot">......</span>
                             </p>
-                            <a href="#" class="card-campus link">Lihat Detail</a>
+                            <a href="detail.html" class="card-campus link">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -125,7 +143,7 @@
                                 diploma
                                 berkualitas tinggi dan berkopet<span class="card-text-dot">......</span>
                             </p>
-                            <a href="#" class="card-campus link">Lihat Detail</a>
+                            <a href="detail.html" class="card-campus link">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -142,7 +160,7 @@
                                 diploma
                                 berkualitas tinggi dan berkopet<span class="card-text-dot">......</span>
                             </p>
-                            <a href="#" class="card-campus link">Lihat Detail</a>
+                            <a href="detail.html" class="card-campus link">Lihat Detail</a>
                         </div>
                     </div>
                 </div>
@@ -150,6 +168,7 @@
             </div>
         </div>
 
+        <!-- Majority -->
         <div class="container campus" id="campus">
             <div class="campus-header d-flex justify-content-between align-items-center">
                 <div class="d-flex flex-column gap-1">
@@ -217,13 +236,59 @@
         
             </div>
         </div>
+
+        <!-- CTA -->
+        <div class="container cta" id="CTA">
+            <div class="row cta-wrapper">
+                <div class="cta-left col-lg-6 col-md-12">
+                    <div class="d-flex flex-column gap-4 cta-top-wrapper">
+                        <span class="cta-text">
+                            Daftar sekarang dan jadilah bagian dari prestasi di kota pendidikan ini!
+                        </span>
+                        <button class="btn btn-secondary">
+                            Daftar ke perguruan tinggi
+                        </button>
+                    </div>
+                </div>
+                <div class="cta-right col-lg-6 col-md-12">
+                    <img src="assets/Foto Mahasiswa/Mahasiswa 03.jpg" class="d-none d-sm-block img-responsive" alt="" />
+                </div>
+
+            </div>
+        </div>
     </main>
 
-    <!-- <footer>
-        <div class="container">
-            <h4>INI FOOTER</h4>
-        </div>
-    </footer> -->
+    <footer id="footer">
+            <div class="footer-wrapper">
+                <div class="container d-flex justify-content-between">
+                    <div class="d-flex flex-column gap-3 footer-wrapper-left">
+                        <img src="assets/Logo KM.png" width="130px" alt="">
+                        <span class="footer-wrapper-left-text">
+                            Temukan lebih dari 100 rekomendasi kampus di Malang, lengkap dengan info jurusan sesuai minat dan bakat, biaya, hingga
+                            prospek karier
+                        </span>
+                    </div>
+                    <div class="d-flex flex-row gap-5">
+                        <div class="d-flex flex-column gap-3">
+                            <span class="footer-wrapper-right-title">Menu</span>
+                            <a href="" class="footer-wrapper-right-sub">Info Kampus</a>
+                            <a href="" class="footer-wrapper-right-sub">Info Jurusan</a>
+                            <a href="" class="footer-wrapper-right-sub">Daftar Sekarang</a>
+                        </div>
+                        <div class="d-flex flex-column gap-3">
+                            <span class="footer-wrapper-right-title">Sosial Media</span>
+                            <a href="" target="_blank" class="footer-wrapper-right-sub">Instagram</a>
+                            <a href="" target="_blank" class="footer-wrapper-right-sub">Facebook</a>
+                            <a href="" target="_blank" class="footer-wrapper-right-sub">Twitter</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer-bottom d-flex justify-content-center align-items-center flex-column gap-1 mb-4 mt-4">
+                    <span class="">KampusMalang<span class="card-text-dot">.</span>com</span>
+                    <span class="">© 2023 PT Sentra Vidya Utama<span class="card-text-dot">.</span> Hak cipta dilindungi Undang-Undang</span>
+                </div>
+            </div>
+    </footer>
 
 <script src="js/bootstrap.min.js"></script>
 </body>

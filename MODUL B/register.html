@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg" id="navbar">
+        <div class="container">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <div class="d-flex align-items-center w-100 gap-5">
+                    <!-- Logo -->
+                    <a class="navbar-brand" href="/">
+                        <img src="assets/Logo KM.png" alt="">
+                    </a>
+                    <!-- Logo -->
+                    <div class="d-flex w-100 gap-4">
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Menu
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                        <form class="d-flex ms-auto position-relative w-100" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Cari di KampusMalang.com"
+                                aria-label="Search">
+                            <button class="btn btn-primary position-absolute end-0 " type="submit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-search" viewBox="0 0 16 16">
+                                    <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                </svg>
+                            </button>
+                        </form>
+                        <ul class="d-flex gap-4 navbar-nav mb-2 mb-lg-0">
+                            <div class="button__right btn btn-outline-primary" data-bs-toggle="modal"
+                                data-bs-target="#registerModal">Daftar</div>
+                            <div class="button__right btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Masuk</div>
+                        </ul>
+                    </div>
+    
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container" id="register">
+        <div class="register-card mt-5">
+            <form>
+                <img src="assets/Logo KM.png" class="d-flex justify-content-center mb-5" alt="">
+                <div class="form-group mb-4">
+                    <label for="exampleInputEmail1" class="mb-2">Email address</label>
+                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="exampleInputEmail1" class="mb-2">First Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="exampleInputEmail1" class="mb-2">Last Name</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                </div>
+                <div class="form-group mb-4">
+                    <label for="exampleInputEmail1" class="mb-2">Tempat, Tanggal Lahir</label>
+                    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                        placeholder="Enter email">
+                </div>
+                <div class="form-group">
+                    <label for="exampleInputPassword1" class="mb-2">Password</label>
+                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                </div>
+                <button type="submit" class="btn btn-primary mt-4 w-100">Daftar</button>
+            </form>
+        </div>
+    </main>
+
+    <footer id="footer">
+        <div class="footer-wrapper">
+            <div class="container d-flex justify-content-between">
+                <div class="d-flex flex-column gap-3 footer-wrapper-left">
+                    <img src="assets/Logo KM.png" width="130px" alt="">
+                    <span class="footer-wrapper-left-text">
+                        Temukan lebih dari 100 rekomendasi kampus di Malang, lengkap dengan info jurusan sesuai minat dan
+                        bakat, biaya, hingga
+                        prospek karier
+                    </span>
+                </div>
+                <div class="d-flex flex-row gap-5">
+                    <div class="d-flex flex-column gap-3">
+                        <span class="footer-wrapper-right-title">Menu</span>
+                        <a href="" class="footer-wrapper-right-sub">Info Kampus</a>
+                        <a href="" class="footer-wrapper-right-sub">Info Jurusan</a>
+                        <a href="" class="footer-wrapper-right-sub">Daftar Sekarang</a>
+                    </div>
+                    <div class="d-flex flex-column gap-3">
+                        <span class="footer-wrapper-right-title">Sosial Media</span>
+                        <a href="" target="_blank" class="footer-wrapper-right-sub">Instagram</a>
+                        <a href="" target="_blank" class="footer-wrapper-right-sub">Facebook</a>
+                        <a href="" target="_blank" class="footer-wrapper-right-sub">Twitter</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom d-flex justify-content-center align-items-center flex-column gap-1 mb-4 mt-4">
+                <span class="">KampusMalang<span class="card-text-dot">.</span>com</span>
+                <span class="">© 2023 PT Sentra Vidya Utama<span class="card-text-dot">.</span> Hak cipta dilindungi
+                    Undang-Undang</span>
+            </div>
+        </div>
+    </footer>
+
+
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

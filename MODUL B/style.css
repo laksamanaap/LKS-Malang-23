@@ -3,6 +3,7 @@
     --white: #ffffff;
     --black: #000000;
     --primary: #ffb400;
+    --danger: rgb(202, 0, 0);
     --secondary: #0093e8;
     --tertinary: #aaaaaa;
 }
@@ -73,10 +74,14 @@ body {
 }
 
 
+.card-text-dot {
+    font-family: "Fabrik", sans-serif !important;
+}
+
 /* Hero */
 
 #hero {
-    margin-top: 84px !important;
+    margin-top: 72px !important;
 }
 
 #hero .carousel-inner {
@@ -186,4 +191,211 @@ body {
 }
 
 
-/* Majority */
+/* CTA */
+
+#CTA {
+    margin-top: 84px;
+}
+
+#CTA .cta-wrapper {
+    margin: 0 auto;
+    background-color: var(--primary);
+    border-radius: 24px;
+}
+
+#CTA .cta-top-wrapper {
+    padding: 40px;
+}
+
+#CTA .cta-text {
+    font-size: 35px;
+    font-family: "Watchword-bold", sans-serif !important;
+    color: var(--white);    
+}
+
+#CTA img {
+    object-fit: cover;
+    object-position: center;
+    width: 100%;
+    max-width: 650px;
+    max-height: 320px;
+    border-top-right-radius: 24px;
+    border-bottom-right-radius: 24px;
+}
+
+#CTA .btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    max-width: 195px;
+}
+
+#CTA .cta-right {
+    padding: unset !important;
+}
+
+
+/* Footer */
+
+#footer {
+    margin-top: 132px;
+    font-family: "Watchword-regular", sans-serif !important;
+}
+
+#footer .footer-wrapper {
+    padding-top: 84px;
+    background-color: #fcfcfc;
+}
+
+#footer .footer-wrapper-left-text {
+    max-width: 450px;
+}
+
+#footer .footer-wrapper-right-title {
+    font-family: "Watchword-bold", sans-serif !important;
+}
+
+#footer .footer-wrapper-right-sub {
+    text-decoration: none;
+    color: var(--black) ;
+}
+
+#footer .footer-bottom {
+    color: var(--tertinary);
+}
+
+
+
+/* == Detail == */
+
+#detail {
+    font-family: "Watchword-regular", sans-serif !important;
+    margin-top: 72px;
+}
+
+/* Detail Images */
+
+#detail img {
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(90%);
+}
+
+#detail .detail-images--1 {
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+    max-width: 680px;
+    max-height: 340px;
+}
+
+#detail .detail-images--2,
+#detail .detail-images--3,
+#detail .detail-images--4,
+#detail .detail-images--5 {
+    width: 300px;
+    height: 100%;
+}
+
+#detail .detail-images-wrapper-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* Detail short desc */
+
+#detail .detail-short-desc {
+    margin-top: 56px;
+}
+
+#detail .detail-short-desc-title {
+    font-family: "Watchword-bold", sans-serif !important;
+    font-size: 24px;
+}
+
+#detail .card-campus.card-badge {
+    font-family: "Watchword-bold", sans-serif !important;
+    padding: 2px;
+    background-color: var(--primary) !important;
+    color: var(--white);
+    border-radius: 8px;
+    min-width: 70px;
+    font-size: 12px;
+}
+
+/* Detail desc */
+
+#detail .detail-desc {
+    margin-top: 64px;
+}
+
+#detail .detail-desc-title {
+    font-size: 18px;
+    font-family: "Watchword-bold", sans-serif !important;
+}
+
+#detail .detail-desc-sub {
+    font-size: 18px;
+    color: var(--tertinary);
+}
+
+#detail .detail-contact-item {
+    color: var(--tertinary);
+}
+
+#detail .detail-contact-item-active {
+    color: var(--primary);
+}
+
+
+/* == Register == */
+
+#register {
+    font-family: "Watchword-regular", sans-serif !important;
+}
+
+#register .register-card {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* == Submission == */
+
+#submission {
+    margin-top: 72px;
+}
+
+#submission .card {
+    width: 300px;
+}
+
+#submission .card-status {
+    font-size: 16px;
+}
+
+#submission .card-status.success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Watchword-bold", sans-serif !important;
+    padding: 2px;
+    background-color: var(--primary) !important;
+    color: var(--white);
+    border-radius: 8px;
+    min-width: 70px;
+    font-size: 12px;
+}
+
+#submission .card-status.rejected {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Watchword-bold", sans-serif !important;
+    padding: 2px;
+    background-color: var(--danger) !important;
+    color: var(--white);
+    border-radius: 8px;
+    min-width: 70px;
+    font-size: 12px;
+}
