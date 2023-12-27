@@ -36,17 +36,16 @@ Route::post('v1/logout', [AuthController::class, 'logoutUsers'])->name('logoutUs
 // Search
 Route::get('/campus/search', [SearchController::class, 'search']);
 
+Route::get('v1/show-all/campus', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
+Route::get('v1/show-all/majority', [CampusController::class, 'showAllMajority'])->name('showAllMajority');
+
 Route::middleware(UserMiddleware::class)->group(
     function() {
-        // Campus
-        Route::get('v1/show-all/campus', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
-        Route::get('v1/show-all/majority', [CampusController::class, 'showAllMajority'])->name('showAllMajority');
         
         Route::post('v1/store-campus-validation', [CampusController::class, 'storeCampusValidation'])->name('storeCampusValidation');
         Route::get('v1/show-campus-validation', [CampusController::class, 'showCampusValidation'])->name('storeCampusValidation');
         
         Route::get('v1/show-campus/{id_campus}', [CampusController::class, 'showCampus'])->name('showCampus');
-
     }
 );
 
@@ -64,13 +63,14 @@ Route::middleware(AdminMiddleware::class)->group(
         Route::get('v2/show-campus/{id}', [CampusController::class, 'showCampus'])->name('showCampus');
         Route::delete('v2/delete-campus/{id}', [CampusController::class, 'deleteCampus'])->name('deleteCampus');
 
-        // Store Faculty Image
-
         // Faculty
         Route::post('v2/store-faculty', [FacultyController::class, 'storeFaculty'])->name('storeFaculty');
         Route::put('v2/update-faculty/{id}', [FacultyController::class, 'updateFaculty'])->name('updateFaculty');
         Route::get('v2/show-faculty/{id}', [FacultyController::class, 'showFaculty'])->name('showFaculty');
         Route::delete('v2/delete-faculty/{id}', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');
+
+        // Store Majority Image
+        Route::post('v2/store-majority-image', [MajorityController::class, 'storeMajorityImages'])->name("storeMajorityImages");
 
         // Majority
         Route::post('v2/store-majority', [MajorityController::class, 'storeMajority'])->name('storeMajority');

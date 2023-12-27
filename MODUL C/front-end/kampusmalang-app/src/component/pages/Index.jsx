@@ -1,12 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import carouselImage1 from "../../assets/Foto Mahasiswa/Mahasiswa 01.jpg";
 import carouselImage2 from "../../assets/Foto Mahasiswa/Mahasiswa 02.jpg";
 import carouselImage3 from "../../assets/Foto Mahasiswa/Mahasiswa 03.jpg";
 import ctaImage from "../../assets/Foto Mahasiswa/Mahasiswa 03.jpg";
 import majorityImage1 from "../../assets/teknik-informatika-e1623139188734.jpeg";
+import placeholder from "../../assets/placeholder.png";
 import campusImage1 from "../../assets/Polinema/ca8aa161cd519118bdcfe27add0f2ce2.png";
+import client from "../../utils/router";
 
 export const Index = () => {
+  const [campusData, setCampusData] = useState([]);
+  const [majorityData, setMajorityData] = useState([]);
+
+  const fetchCampusData = async () => {
+    try {
+      const response = await client.get("v1/show-all/campus");
+      setCampusData(response.data);
+    } catch (error) {
+      console.error("Error fetching campus data:", error.message);
+    }
+  };
+
+  const fetchMajorityData = async () => {
+    try {
+      const response = await client.get("v1/show-all/majority");
+      setMajorityData(response.data);
+    } catch (error) {
+      console.error("Error fetching majority data:", error.message);
+    }
+  };
+
+  useEffect(() => {
+    fetchCampusData();
+    fetchMajorityData();
+  }, []);
+
+  console.log(campusData);
+
+  const slicedCampusData = campusData.slice(0, 3);
+  const slicedMajorityData = majorityData.slice(0, 3);
+
+  console.log(slicedCampusData);
+  console.log(slicedMajorityData);
+
+  console.log(majorityData);
   return (
     <>
       <main>
@@ -97,69 +134,40 @@ export const Index = () => {
             </a>
           </div>
           <div class="row">
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={campusImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Negeri
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Politeknik Negeri Malang
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="detail.html" class="card-campus link">
-                    Lihat Detail
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={campusImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Negeri
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Politeknik Negeri Malang
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="detail.html" class="card-campus link">
-                    Lihat Detail
-                  </a>
+            {slicedCampusData.map((campus) => (
+              <div key={campus.id_campus} className="col-lg-4">
+                <div className="card-campus card mt-5 position-relative">
+                  {/* Assuming the first image from the array is used */}
+                  <img
+                    src={
+                      campus.image_campus.length > 0
+                        ? campus.image_campus[0].icon
+                        : placeholder
+                    }
+                    className="position-relative"
+                    alt={campus.name}
+                  />
+                  <div className="d-flex justify-content-center align-items-center card-campus card-badge">
+                    {campus.type}
+                  </div>
+                  <div className="card-campus card-body d-flex flex-column">
+                    <h5 className="card-campus card-title mt-4">
+                      {campus.name}
+                    </h5>
+                    <p className="card-campus card-text">
+                      {campus.description}
+                      <span className="card-text-dot">......</span>
+                    </p>
+                    <a
+                      href={`detail/${campus.id_campus}`}
+                      className="card-campus link"
+                    >
+                      Lihat Detail
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={campusImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Negeri
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Politeknik Negeri Malang
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="detail.html" class="card-campus link">
-                    Lihat Detail
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 
@@ -179,69 +187,34 @@ export const Index = () => {
             </a>
           </div>
           <div class="row">
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={majorityImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Teknik
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Teknik Informatika
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="#" class="card-campus link">
-                    Lihat Detail
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={majorityImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Teknik
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Teknik Informatika
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="#" class="card-campus link">
-                    Lihat Detail
-                  </a>
+            {slicedMajorityData.map((majority) => (
+              <div key={majority.id_majority} class="col-lg-4">
+                <div class="card-campus card mt-5 position-relative">
+                  <img
+                    src={
+                      majority.image_majority.length > 0
+                        ? majority.image_majority[0].icon
+                        : placeholder
+                    }
+                    class="position-relative"
+                    alt={majority.name}
+                  />
+                  <div class="d-flex justify-content-center align-items-center card-campus card-badge">
+                    {majority.type}
+                  </div>
+                  <div class="card-campus card-body d-flex flex-column">
+                    <h5 class="card-campus card-title mt-4">{majority.name}</h5>
+                    <p class="card-campus card-text">
+                      {majority.description}
+                      <span class="card-text-dot">......</span>
+                    </p>
+                    <a href="#" class="card-campus link">
+                      Lihat Detail
+                    </a>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="card-campus card mt-5 position-relative">
-                <img src={majorityImage1} class="position-relative" />
-                <div class="d-flex justify-content-center align-items-center card-campus card-badge">
-                  Teknik
-                </div>
-                <div class="card-campus card-body d-flex flex-column">
-                  <h5 class="card-campus card-title mt-4">
-                    Teknik Informatika
-                  </h5>
-                  <p class="card-campus card-text">
-                    Politeknik negeri malang merupakan perguruan tinggi favorit
-                    di kota malang yang menghasilkan lulusan diploma berkualitas
-                    tinggi dan berkopet<span class="card-text-dot">......</span>
-                  </p>
-                  <a href="#" class="card-campus link">
-                    Lihat Detail
-                  </a>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
 

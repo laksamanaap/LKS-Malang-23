@@ -11,5 +11,10 @@ class Majority extends Model
     protected $primaryKey = 'id_majority';
     protected $guarded = [];
 
+    public function image_majority()
+    {
+        return $this->hasMany(ImageMajority::class,'id_majority');
+    }
+
     use HasFactory;
 }

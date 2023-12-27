@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('images_majority', function (Blueprint $table) {
             $table->id('id_images_majority');
+            $table->unsignedBigInteger('id_majority');
             $table->string('icon');
             $table->timestamps();
+
+            $table->foreign('id_majority')->references('id_majority')->on('majority');
         });
     }
 

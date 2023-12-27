@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Majority;
 use Illuminate\Http\Request;
+use App\Models\ImageMajority;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class MajorityController extends Controller
@@ -95,5 +97,43 @@ class MajorityController extends Controller
         }
 
         return response()->json(['message' => "Majority with id ($id_Majority) deleted successfully"], 200);
+    }
+
+    // Store Majority Images
+    public function storeMajorityImages(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'id_majority' => 'required|string',
+            'images.*' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $uploadFolders = 'majority';
+
+        $idMajority = $request->input('id_majority');
+
+        $image = $request->file('images');
+
+        $imagePath = $image->store($uploadFolders, 'public');
+
+        $imageModel = ImageMajority::create([
+            'id_majority' => $idMajority,
+            'icon' => Storage::disk('public')->url($imagePath),
+        ]);
+
+        $uploadImageResponse = [
+            'image_name' => basename($imagePath),
+            'image_url' => Storage::disk('public')->url($imagePath),
+            'mime' => $image->getClientMimeType(),
+            'id_images_majority' => $imageModel->id_images_campus,
+        ];
+
+        return response()->json([
+            'message' => 'Image uploaded successfully',
+            'data' => $uploadImageResponse
+        ]);
     }
 }

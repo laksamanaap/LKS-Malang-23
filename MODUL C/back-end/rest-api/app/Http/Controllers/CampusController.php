@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Campus;
 use App\Models\Majority;
+use App\Models\ImageCampus;
 use Illuminate\Http\Request;
 use App\Models\CampusValidation;
 use Illuminate\Support\Facades\Storage;
@@ -81,10 +82,10 @@ class CampusController extends Controller
     // Show All Campus
     public function showAllCampus()
     {
-        $campus = Campus::all();
+        $campus = Campus::with('faculty','majority','image_campus')->get();
 
         if ($campus) {
-            return response()->json(['data' => $campus]);
+            return response()->json( $campus);
         } else {
             return response()->json(['error' => 'No data campus']);
         }
@@ -93,10 +94,10 @@ class CampusController extends Controller
     // Show All Majority
     public function showAllMajority()
     {
-        $majority = Majority::all();
+        $majority = Majority::with('image_majority')->get();
 
         if($majority) {
-            return response()->json(['data' => $majority]);
+            return response()->json( $majority);
         } else {
             return response()->json(['error' => 'No data campus']);
         }
@@ -211,34 +212,43 @@ class CampusController extends Controller
         return response()->json(['message' => "Campus with id ($id_campus) deleted successfully"], 200);
     }
 
-    // Store Campus Image
+    // Store Images Campus
     public function storeCampusImages(Request $request)
     {
-
         $validator = Validator::make($request->all(), [
-            'image' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
+            'id_campus' => 'required|string',
+            'images.*' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
         if ($validator->fails()) {
-            return response()->json([$validator->errors()]);
+            return response()->json(['errors' => $validator->errors()], 422);
         }
 
         $uploadFolders = 'campus';
 
-        $image = $request->file('image');
-        $image_uploaded_path = $image->store($uploadFolders, 'public');
+        $idCampus = $request->input('id_campus');
+
+        $image = $request->file('images');
+
+        $imagePath = $image->store($uploadFolders, 'public');
+
+        $imageModel = ImageCampus::create([
+            'id_campus' => $idCampus,
+            'icon' => Storage::disk('public')->url($imagePath),
+        ]);
 
         $uploadImageResponse = [
-            "image_name" => basename($image_uploaded_path),
-            "image_url" => Storage::disk('public')->url($image_uploaded_path),
-            "mime" => $image->getClientMimeType()
+            'id_images_campus' => $imageModel->id_images_campus,
+            'image_name' => basename($imagePath),
+            'image_url' => Storage::disk('public')->url($imagePath),
+            'mime' => $image->getClientMimeType(),
         ];
 
         return response()->json([
-            'message' => 'Images upload succesfully',
+            'message' => 'Image uploaded successfully',
             'data' => $uploadImageResponse
         ]);
-
-
     }
+
+
 }
