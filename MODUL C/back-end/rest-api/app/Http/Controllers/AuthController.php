@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
+use App\Models\CampusValidation;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -58,14 +62,123 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
 
-            $token = $user->createToken('auth_token')->plainTextToken;
-            $user->update(['tokens' => $token]);
+            if ($user->status === "0") {
+                return response()->json(['Error' => "User has been deactivated"]);
+            } else {
+                $token = $user->createToken('auth_token')->plainTextToken;
+                $user->update(['tokens' => $token]);
+                return response()->json(['data' => $user],200);
+            }
             
-            return response()->json(['data' => $user],200);
         } else {
             return response()->json(['Error' => 'Login Error!'],400);
 
         }
 
     }
+
+    public function logoutUsers(Request $request)
+    {
+
+        $validator = Validator::make($request-> all(), [
+            'token' => 'required|string'
+        ]);
+
+        $inputToken = $request->input('token');
+
+        $societies = User::where('tokens', $inputToken)
+        ->update(['tokens' => null]);
+
+        return response()->json(['Message' => "Logout success!"]);
+    }
+
+
+    // 0 : Not Active
+    // 1 : Active
+    public function changeMemberStatus(Request $request, $id_users)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => ['required', Rule::in([0, 1, 2])], // Validate that status is one of [0, 1, 2]
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $user = User::find($id_users);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $newStatus = $request->input('status');
+
+        // Update the user's status
+        $user->update(['status' => $newStatus]);
+
+        return response()->json([
+            'message' => 'User status updated successfully',
+            'data' => $user,
+        ], 200);
+    }
+
+    // 0 : Pending
+    // 1 : Accepted
+    public function changeStudentStatus(Request $request, $id_users)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => ['required', Rule::in([0, 1, 2])], // Validate that status is one of [0, 1, 2]
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 400);
+        }
+
+        $student = CampusValidation::with('user','campus')->get()
+        ->find($id_users);
+
+        if (!$student) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        $newStatus = $request->input('status');
+
+        // Update the user's status
+        $student->update(['status' => $newStatus]);
+
+        return response()->json([
+            'message' => 'User status updated successfully',
+            'data' => $student,
+        ], 200);
+    }
+
+    // Sum all student registered
+    public function sumStudentRegistered()
+    {
+
+        $studentCount = CampusValidation::count();
+
+        return response()->json([
+            'data' => [
+                'total_registered_users' => $studentCount,
+            ],
+        ], 200);
+    }
+
+    // Sum all student status (accepted or rejected)
+    public function sumStudentStatus()
+    {
+
+        $studentCountAccepted = CampusValidation::where('status',1)->count();
+        $studentCountRejected = CampusValidation::where('status',0)->count();
+
+        return response()->json([
+            'data' => [
+                'accepted_users' => $studentCountAccepted,
+                'rejected_users' => $studentCountRejected,
+            ],
+        ], 200);
+
+    }
+
 }

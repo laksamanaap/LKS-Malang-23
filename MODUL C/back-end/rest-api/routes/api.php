@@ -2,10 +2,14 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\UserMiddleware;
 use App\Http\Controllers\AuthController;
+use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\CampusController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\MajorityController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,35 +27,76 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
+// Auth
 Route::post('v1/register', [AuthController::class, 'registerUsers'])->name('registerUsers');
 Route::post('v1/login', [AuthController::class, 'loginUsers'])->name('loginUsers');
+Route::post('v1/logout', [AuthController::class, 'logoutUsers'])->name('logoutUsers');
 
-Route::get('v1/show-all/campus', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
-Route::get('v1/show-all/majority', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
+ 
+// Search
+Route::get('/campus/search', [SearchController::class, 'search']);
 
-Route::post('v1/store-campus-validation', [AuthController::class, 'storeCampusValidation'])->name('storeCampusValidation');
-Route::get('v1/show-campus-validation', [AuthController::class, 'showCampusValidation'])->name('storeCampusValidation');
+Route::middleware(UserMiddleware::class)->group(
+    function() {
+        // Campus
+        Route::get('v1/show-all/campus', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
+        Route::get('v1/show-all/majority', [CampusController::class, 'showAllMajority'])->name('showAllMajority');
+        
+        Route::post('v1/store-campus-validation', [CampusController::class, 'storeCampusValidation'])->name('storeCampusValidation');
+        Route::get('v1/show-campus-validation', [CampusController::class, 'showCampusValidation'])->name('storeCampusValidation');
+        
+        Route::get('v1/show-campus/{id_campus}', [CampusController::class, 'showCampus'])->name('showCampus');
 
-// Admin
+    }
+);
 
-// Campus
-Route::post('v2/store-campus', [CampusController::class, 'storeCampus'])->name('storeCampus');
-Route::get('v2/show-campus/{id}', [CampusController::class, 'showCampus'])->name('showCampus');
-Route::put('v2/update-campus', [CampusController::class, 'updateCampus'])->name('updateCampus');
-Route::delete('v2/delete-campus', [CampusController::class, 'deleteCampus'])->name('deleteCampus');
 
-// Faculty
-Route::post('v2/store-faculty', [FacultyController::class, 'storeFaculty'])->name('storeFaculty');
-Route::get('v2/show-faculty/{id}', [FacultyController::class, 'showFaculty'])->name('showFaculty');
-Route::put('v2/update-faculty', [FacultyController::class, 'updateFaculty'])->name('updateFaculty');
-Route::delete('v2/delete-faculty', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');
+// Admin Middleware
+Route::middleware(AdminMiddleware::class)->group(
+    function() {
 
-// Majority
-Route::post('v2/store-majority', [MajorityController::class, 'storeMajority'])->name('storeMajority');
-Route::get('v2/show-majority/{id}', [MajorityController::class, 'showMajority'])->name('showMajority');
-Route::put('v2/update-majority', [MajorityController::class, 'updateMajority'])->name('updateMajority');
-Route::delete('v2/delete-majority', [MajorityController::class, 'deleteMajority'])->name('deleteMajority');
+        // Store Campus Image
+        Route::post('v2/store-campus-image', [CampusController::class, 'storeCampusImages'])->name("storeCampusImages");
 
-// Change member Status
+        // Campus
+        Route::post('v2/store-campus', [CampusController::class, 'storeCampus'])->name('storeCampus');
+        Route::put('v2/update-campus/{id}', [CampusController::class, 'updateCampus'])->name('updateCampus');
+        Route::get('v2/show-campus/{id}', [CampusController::class, 'showCampus'])->name('showCampus');
+        Route::delete('v2/delete-campus/{id}', [CampusController::class, 'deleteCampus'])->name('deleteCampus');
+
+        // Store Faculty Image
+
+        // Faculty
+        Route::post('v2/store-faculty', [FacultyController::class, 'storeFaculty'])->name('storeFaculty');
+        Route::put('v2/update-faculty/{id}', [FacultyController::class, 'updateFaculty'])->name('updateFaculty');
+        Route::get('v2/show-faculty/{id}', [FacultyController::class, 'showFaculty'])->name('showFaculty');
+        Route::delete('v2/delete-faculty/{id}', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');
+
+        // Majority
+        Route::post('v2/store-majority', [MajorityController::class, 'storeMajority'])->name('storeMajority');
+        Route::get('v2/show-majority/{id}', [MajorityController::class, 'showMajority'])->name('showMajority');
+        Route::put('v2/update-majority/{id}', [MajorityController::class, 'updateMajority'])->name('updateMajority');
+        Route::delete('v2/delete-majority/{id}', [MajorityController::class, 'deleteMajority'])->name('deleteMajority');
+
+        // Adding up the total student
+        Route::get('v2/all-student-registered', [AuthController::class, 'sumStudentRegistered'])->name('sumStudentRegistered');
+    
+        // Adding up the total student accepted or rejected
+        Route::get('v2/student-status-count', [AuthController::class, 'sumStudentStatus'])->name('sumStudentStatus');
+
+        // Change Member and student Status
+        Route::put('v2/change-member-status/{id}', [AuthController::class, 'changeMemberStatus'])->name('changeMemberStatus');
+        Route::put('v2/change-student-status/{id_users}', [AuthController::class, 'changeStudentStatus'])->name('changeStudentStatus');
+
+        // Search student and member
+        Route::get('v2/member/search', [SearchController::class, 'searchMember'])->name('searchMember');
+        Route::get('v2/student/search', [SearchController::class, 'searchStudent'])->name('searchStudent');
+
+    }
+);
+
+
+
+
 
 

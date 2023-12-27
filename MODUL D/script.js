@@ -13,13 +13,24 @@ const cooldown = document.getElementById("cooldown");
 const btnQuit = document.getElementById("quit");
 
 // Init Banteng Image
-const bantengImage = new Image();
-bantengImage.src = "./assets/pdip.png";
-bantengImage.width = 150;
-bantengImage.height = 150;
-bantengImage.onload = () => {
+const bantengImage1 = new Image();
+bantengImage1.src = "./assets/pdip.png";
+bantengImage1.width = 150;
+bantengImage1.height = 150;
+bantengImage1.onload = () => {
   drawImageOnRandomBox();
 };
+
+// Init Banteng Image 2
+const bantengImage2 = new Image();
+bantengImage2.src = "./assets/pdi.png";
+bantengImage2.width = 150;
+bantengImage2.height = 150;
+bantengImage2.onload = () => {
+  drawImageOnRandomBox();
+};
+
+// Init Banteng Position
 let bantengX;
 let bantengY;
 let bantengClicked = false;
@@ -49,9 +60,9 @@ function handleCanvasClick(event) {
   // Check if the click is on the banteng
   if (
     mouseX >= bantengX &&
-    mouseX <= bantengX + bantengImage.width &&
+    mouseX <= bantengX + bantengImage1.width &&
     mouseY >= bantengY &&
-    mouseY <= bantengY + bantengImage.height
+    mouseY <= bantengY + bantengImage1.height
   ) {
     console.log("rawr");
 
@@ -61,7 +72,7 @@ function handleCanvasClick(event) {
       bantengClicked = true;
 
       // Clicked on the banteng
-      //   changeBantengImage();
+      //   changeBantengImage1();
       drawImageOnRandomBox();
     }
   } else {
@@ -83,7 +94,7 @@ const drawImageOnRandomBox = () => {
   const numCols = 3;
 
   // Clear the area where the previous banteng was drawn
-  ctx.clearRect(bantengX, bantengY, bantengImage.width, bantengImage.height);
+  ctx.clearRect(bantengX, bantengY, bantengImage1.width, bantengImage1.height);
 
   ctx.fillStyle = "green";
   ctx.fillRect(0, 0, map.width, map.height);
@@ -102,7 +113,7 @@ const drawImageOnRandomBox = () => {
   const randomRow = Math.floor(Math.random() * numRows);
   const randomCol = Math.floor(Math.random() * numCols);
 
-  const randomX = randomCol * (map.width / numCols) + bantengImage.width / 2;
+  const randomX = randomCol * (map.width / numCols) + bantengImage1.width / 2;
   const randomY = randomRow * (map.height / numRows);
 
   bantengX = randomX;
@@ -111,17 +122,17 @@ const drawImageOnRandomBox = () => {
 
   // Draw banteng image
   ctx.drawImage(
-    bantengImage,
+    bantengImage1,
     randomX,
     randomY,
-    bantengImage.width,
-    bantengImage.height
+    bantengImage1.width,
+    bantengImage1.height
   );
 };
 
 // Change the banteng image
 const changeBantengImage = () => {
-  bantengImage.src = "./assets/pdi.png";
+  bantengImage1.src = "./assets/pdi.png";
 };
 
 // Timer Function
@@ -213,6 +224,7 @@ const updateLivesDisplay = () => {
   }
 };
 
+// Record user score
 const updateHighScoreDisplay = () => {
   const storedName = localStorage.getItem("name") || "-";
   const storedScore = localStorage.getItem("score") || 0;

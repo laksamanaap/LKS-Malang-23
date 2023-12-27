@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Majority extends Model
 {
     protected $table = 'majority';
-    protected $primaryKet = 'id_majority';
+    protected $primaryKey = 'id_majority';
     protected $guarded = [];
 
     use HasFactory;

@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('images_campus', function (Blueprint $table) {
             $table->id('id_images_campus');
+            $table->unsignedBigInteger('id_campus');
             $table->string('icon');
             $table->timestamps();
+
+            $table->foreign('id_campus')->references('id_campus')->on('campus');
         });
     }
+
+    
 
     /**
      * Reverse the migrations.

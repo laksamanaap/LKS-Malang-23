@@ -1,5 +1,7 @@
 import React from "react";
 import carouselImage1 from "../../assets/Foto Mahasiswa/Mahasiswa 01.jpg";
+import carouselImage2 from "../../assets/Foto Mahasiswa/Mahasiswa 02.jpg";
+import carouselImage3 from "../../assets/Foto Mahasiswa/Mahasiswa 03.jpg";
 import ctaImage from "../../assets/Foto Mahasiswa/Mahasiswa 03.jpg";
 import majorityImage1 from "../../assets/teknik-informatika-e1623139188734.jpeg";
 import campusImage1 from "../../assets/Polinema/ca8aa161cd519118bdcfe27add0f2ce2.png";
@@ -53,12 +55,12 @@ export const Index = () => {
                     </span>
                     anda dengan{" "}
                     <span class="carouse-inner-text--bold">mudah,</span> Raih{" "}
-                    <span class="carouse-inner-text--bold">masa depan</span>
+                    <span class="carouse-inner-text--bold">masa depan</span>{" "}
                     cerah bersama{" "}
                     <span class="carouse-inner-text--bold"> KampusMalang</span>
                   </span>
                 </div>
-                <img src={carouselImage1} class="d-block w-100 " alt="..." />
+                <img src={carouselImage2} class="d-block w-100 " alt="..." />
               </div>
               <div class="carousel-item">
                 <div class="carouse-inner-text position-absolute">
@@ -68,12 +70,12 @@ export const Index = () => {
                     </span>
                     anda dengan{" "}
                     <span class="carouse-inner-text--bold">mudah,</span> Raih{" "}
-                    <span class="carouse-inner-text--bold">masa depan</span>
+                    <span class="carouse-inner-text--bold">masa depan</span>{" "}
                     cerah bersama{" "}
                     <span class="carouse-inner-text--bold"> KampusMalang</span>
                   </span>
                 </div>
-                <img src={carouselImage1} class="d-block w-100 " alt="..." />
+                <img src={carouselImage3} class="d-block w-100 " alt="..." />
               </div>
             </div>
           </div>
@@ -97,10 +99,7 @@ export const Index = () => {
           <div class="row">
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/Polinema/ca8aa161cd519118bdcfe27add0f2ce2.png"
-                  class="position-relative"
-                />
+                <img src={campusImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Negeri
                 </div>
@@ -121,10 +120,7 @@ export const Index = () => {
             </div>
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/Polinema/ca8aa161cd519118bdcfe27add0f2ce2.png"
-                  class="position-relative"
-                />
+                <img src={campusImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Negeri
                 </div>
@@ -145,10 +141,7 @@ export const Index = () => {
             </div>
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/Polinema/ca8aa161cd519118bdcfe27add0f2ce2.png"
-                  class="position-relative"
-                />
+                <img src={campusImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Negeri
                 </div>
@@ -188,10 +181,7 @@ export const Index = () => {
           <div class="row">
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/teknik-informatika-e1623139188734.jpeg"
-                  class="position-relative"
-                />
+                <img src={majorityImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Teknik
                 </div>
@@ -212,10 +202,7 @@ export const Index = () => {
             </div>
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/teknik-informatika-e1623139188734.jpeg"
-                  class="position-relative"
-                />
+                <img src={majorityImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Teknik
                 </div>
@@ -236,10 +223,7 @@ export const Index = () => {
             </div>
             <div class="col-lg-4">
               <div class="card-campus card mt-5 position-relative">
-                <img
-                  src="assets/teknik-informatika-e1623139188734.jpeg"
-                  class="position-relative"
-                />
+                <img src={majorityImage1} class="position-relative" />
                 <div class="d-flex justify-content-center align-items-center card-campus card-badge">
                   Teknik
                 </div>

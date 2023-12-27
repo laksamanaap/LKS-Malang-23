@@ -2,14 +2,29 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Campus;
+use App\Models\Majority;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Faculty extends Model
 {
     protected $table = 'faculty';
-    protected $primaryKet = 'id_faculty';
+    protected $primaryKey = 'id_faculty';
     protected $guarded = [];
+
+    public $timestamps = false;
+
+    public function campus()
+    {
+        return $this->belongsTo(Campus::class, 'id_campus');
+    }
+
+    public function majority()
+    {
+        return $this->belongsTo(Majority::class, 'id_majority');
+    }
+
 
     use HasFactory;
 }
