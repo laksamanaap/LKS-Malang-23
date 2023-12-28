@@ -12,6 +12,7 @@ export const Index = () => {
   const [campusData, setCampusData] = useState([]);
   const [majorityData, setMajorityData] = useState([]);
 
+  // Try catch version
   const fetchCampusData = async () => {
     try {
       const response = await client.get("v1/show-all/campus");
@@ -129,7 +130,7 @@ export const Index = () => {
                 terbaik!
               </span>
             </div>
-            <a type="button" class="btn btn-primary" href="#">
+            <a type="button" class="btn btn-primary" href="/all-campus">
               Temukan kampus lainnya
             </a>
           </div>
@@ -182,7 +183,7 @@ export const Index = () => {
                 prospek yang baik!
               </span>
             </div>
-            <a type="button" class="btn btn-primary" href="#">
+            <a type="button" class="btn btn-primary" href="/all-majority">
               Temukan jurusan lainnya
             </a>
           </div>
@@ -208,7 +209,10 @@ export const Index = () => {
                       {majority.description}
                       <span class="card-text-dot">......</span>
                     </p>
-                    <a href="#" class="card-campus link">
+                    <a
+                      href={`/detail-majority/${majority.id_majority}`}
+                      class="card-campus link"
+                    >
                       Lihat Detail
                     </a>
                   </div>
@@ -226,9 +230,9 @@ export const Index = () => {
                   Daftar sekarang dan jadilah bagian dari prestasi di kota
                   pendidikan ini!
                 </span>
-                <button class="btn btn-secondary">
+                <a href="/all-campus" class="btn btn-secondary">
                   Daftar ke perguruan tinggi
-                </button>
+                </a>
               </div>
             </div>
             <div class="cta-right col-lg-6 col-md-12">

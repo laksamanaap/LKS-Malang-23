@@ -1,7 +1,39 @@
-import { Navigate, Outlet } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Navigate, Outlet } from "react-router-dom";
 import Logo from "../assets/Logo KM.png";
 
 export const GuardSkin = () => {
+  const navigate = useNavigate();
+
+  // If token exists, user is logged in true
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  // Check User
+  useEffect(() => {
+    if (!isLoggedIn) {
+      navigate("/");
+    } else {
+      const userRole = localStorage.getItem("role");
+      console.log(userRole);
+      // Check if user is admin
+      if (userRole === "admin") {
+        setIsAdmin(true);
+        navigate("/admin/user");
+      }
+    }
+  }, [isLoggedIn, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+
+    setIsLoggedIn(false);
+  };
+
+  const first_name = localStorage.getItem("first_name");
+
   return (
     <div>
       <nav class="navbar navbar-expand-lg" id="navbar">
@@ -78,16 +110,33 @@ export const GuardSkin = () => {
                     </svg>
                   </button>
                 </form>
-                <ul class="d-flex gap-4 navbar-nav mb-2 mb-lg-0">
-                  <a
-                    class="button__right btn btn-outline-primary"
-                    href="/register"
-                  >
-                    Daftar
-                  </a>
-                  <a class="button__right btn btn-primary" href="/login">
-                    Masuk
-                  </a>
+                <ul class="d-flex align-items-center gap-4 navbar-nav mb-2 mb-lg-0">
+                  {isLoggedIn ? (
+                    <>
+                      <span class="button_right user" href="#">
+                        {first_name}
+                      </span>
+                      <a
+                        class="button__right btn btn-primary"
+                        href="#"
+                        onClick={handleLogout}
+                      >
+                        Logout
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <a
+                        class="button__right btn btn-outline-primary"
+                        href="/register"
+                      >
+                        Daftar
+                      </a>
+                      <a class="button__right btn btn-primary" href="/login">
+                        Masuk
+                      </a>
+                    </>
+                  )}
                 </ul>
               </div>
             </div>

@@ -40,6 +40,7 @@ export const Register = () => {
         password: password,
       };
 
+      // Try catch version
       try {
         await client.post("v1/register", payload);
         setSuccessMessage("Request data validation successful");

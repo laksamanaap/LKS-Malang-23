@@ -39,6 +39,9 @@ Route::get('/campus/search', [SearchController::class, 'search']);
 Route::get('v1/show-all/campus', [CampusController::class, 'showAllCampus'])->name('showAllCampus');
 Route::get('v1/show-all/majority', [CampusController::class, 'showAllMajority'])->name('showAllMajority');
 
+Route::get('v2/show-campus/{id}', [CampusController::class, 'showCampus'])->name('showCampus');
+Route::get('v2/show-majority/{id}', [MajorityController::class, 'showMajority'])->name('showMajority');
+
 Route::middleware(UserMiddleware::class)->group(
     function() {
         
@@ -56,11 +59,11 @@ Route::middleware(AdminMiddleware::class)->group(
 
         // Store Campus Image
         Route::post('v2/store-campus-image', [CampusController::class, 'storeCampusImages'])->name("storeCampusImages");
+        Route::post('v2/edit-campus-image', [CampusController::class, 'editCampusImages'])->name("editCampusImages");
 
         // Campus
         Route::post('v2/store-campus', [CampusController::class, 'storeCampus'])->name('storeCampus');
         Route::put('v2/update-campus/{id}', [CampusController::class, 'updateCampus'])->name('updateCampus');
-        Route::get('v2/show-campus/{id}', [CampusController::class, 'showCampus'])->name('showCampus');
         Route::delete('v2/delete-campus/{id}', [CampusController::class, 'deleteCampus'])->name('deleteCampus');
 
         // Faculty
@@ -74,7 +77,6 @@ Route::middleware(AdminMiddleware::class)->group(
 
         // Majority
         Route::post('v2/store-majority', [MajorityController::class, 'storeMajority'])->name('storeMajority');
-        Route::get('v2/show-majority/{id}', [MajorityController::class, 'showMajority'])->name('showMajority');
         Route::put('v2/update-majority/{id}', [MajorityController::class, 'updateMajority'])->name('updateMajority');
         Route::delete('v2/delete-majority/{id}', [MajorityController::class, 'deleteMajority'])->name('deleteMajority');
 
@@ -86,7 +88,7 @@ Route::middleware(AdminMiddleware::class)->group(
 
         // Change Member and student Status
         Route::put('v2/change-member-status/{id}', [AuthController::class, 'changeMemberStatus'])->name('changeMemberStatus');
-        Route::put('v2/change-student-status/{id_users}', [AuthController::class, 'changeStudentStatus'])->name('changeStudentStatus');
+        Route::put('v2/change-student-status', [AuthController::class, 'changeStudentStatus'])->name('changeStudentStatus');
 
         // Search student and member
         Route::get('v2/member/search', [SearchController::class, 'searchMember'])->name('searchMember');

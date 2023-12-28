@@ -63,15 +63,15 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->status === "0") {
-                return response()->json(['Error' => "User has been deactivated"]);
+                return response()->json(['error' => "User has been deactivated"]);
             } else {
                 $token = $user->createToken('auth_token')->plainTextToken;
                 $user->update(['tokens' => $token]);
-                return response()->json(['data' => $user],200);
+                return response()->json( $user,200);
             }
             
         } else {
-            return response()->json(['Error' => 'Login Error!'],400);
+            return response()->json(['error' => 'Try to check your password or email!'],400);
 
         }
 
@@ -124,9 +124,12 @@ class AuthController extends Controller
 
     // 0 : Pending
     // 1 : Accepted
-    public function changeStudentStatus(Request $request, $id_users)
+    // 2 : Rejected
+    public function changeStudentStatus(Request $request)
+    
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
             'status' => ['required', Rule::in([0, 1, 2])], // Validate that status is one of [0, 1, 2]
         ]);
 
@@ -134,8 +137,8 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        $student = CampusValidation::with('user','campus')->get()
-        ->find($id_users);
+        $student = CampusValidation::with('user','campus')
+        ->find($request->input('id'));
 
         if (!$student) {
             return response()->json(['error' => 'User not found'], 404);
@@ -147,7 +150,7 @@ class AuthController extends Controller
         $student->update(['status' => $newStatus]);
 
         return response()->json([
-            'message' => 'User status updated successfully',
+            'message' => 'student status updated successfully',
             'data' => $student,
         ], 200);
     }
@@ -155,7 +158,6 @@ class AuthController extends Controller
     // Sum all student registered
     public function sumStudentRegistered()
     {
-
         $studentCount = CampusValidation::count();
 
         return response()->json([

@@ -25,5 +25,10 @@ class CampusValidation extends Model
         return $this->belongsTo(Campus::class, 'id_campus');
     }
 
+    public function faculty()
+    {
+        return $this->belongsTo(faculty::class, 'id_faculty');
+    }
+
     use HasFactory;
 }

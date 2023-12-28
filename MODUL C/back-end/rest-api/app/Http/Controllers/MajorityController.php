@@ -75,13 +75,12 @@ class MajorityController extends Controller
     // Show Specific Majority
     public function showMajority($id_majority)
     {
-        // $majority = Majority::with('campus', 'faculty')
-        //     ->find($id_majority);
+        $majority = Majority::with('image_majority')
+            ->find($id_majority);
 
-        $majority = Majority::find($id_majority);
 
         if ($majority) {
-            return response()->json(['data' => $majority], 200);
+            return response()->json( $majority, 200);
         } else {
             return response()->json(['error' => 'No data Majority'], 404);
         }

@@ -1,8 +1,18 @@
-import React from "react";
-import { Navigate, Outlet, Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { UseNavigate, Outlet, Link, useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo KM.png";
 
 export const AdminSkin = () => {
+  const navigate = useNavigate();
+
+  const userRole = localStorage.getItem("role");
+
+  useEffect(() => {
+    if (userRole != "admin") {
+      navigate("/");
+    }
+  }, [userRole]);
+
   return (
     <>
       <header>
@@ -21,28 +31,37 @@ export const AdminSkin = () => {
                 aria-current="true"
               >
                 <i class="fas fa-tachometer-alt fa-fw me-3"></i>
-                <span>Main dashboard</span>
+                <span>Main Dashboard</span>
               </a>
               <a
-                href="#"
+                href="/admin/student"
+                class="list-group-item list-group-item-action py-2 ripple"
+                aria-current="true"
+              >
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i>
+                <span>Student Dashboard</span>
+              </a>
+              <a
+                href="/admin/member"
+                class="list-group-item list-group-item-action py-2 ripple"
+                aria-current="true"
+              >
+                <i class="fas fa-tachometer-alt fa-fw me-3"></i>
+                <span>Member Dashboard</span>
+              </a>
+              <a
+                href="/admin/campus"
                 class="list-group-item list-group-item-action py-2 ripple"
               >
                 <i class="fas fa-chart-area fa-fw me-3"></i>
-                <span>Webiste traffic</span>
+                <span>Campus Dashboard</span>
               </a>
               <a
-                href="#"
+                href="/admin/campus-validation"
                 class="list-group-item list-group-item-action py-2 ripple"
               >
                 <i class="fas fa-chart-line fa-fw me-3"></i>
-                <span>Analytics</span>
-              </a>
-              <a
-                href="/admin/user"
-                class="list-group-item list-group-item-action py-2 ripple"
-              >
-                <i class="fas fa-users fa-fw me-3"></i>
-                <span>Users</span>
+                <span>Campus Validation </span>
               </a>
               <a
                 href="#"

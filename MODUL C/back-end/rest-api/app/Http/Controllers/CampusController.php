@@ -19,6 +19,7 @@ class CampusController extends Controller
         'token' => 'required|string',
         'id_users' => 'required|integer',
         'id_campus' => 'required|integer',
+        'id_faculty' => 'required|integer',
     ]);
 
     // Check if validation fails
@@ -36,6 +37,7 @@ class CampusController extends Controller
         $formFields = [
             'id_users' => $request->input('id_users'),
             'id_campus' => $request->input('id_campus'),
+            'id_faculty' => $request->input('id_faculty'),
         ];
 
         if ($formFields['id_campus'] === null) {
@@ -48,7 +50,7 @@ class CampusController extends Controller
         $campusValidation->save();
         $campusValidation->load('user','campus');
 
-         return response()->json(['data' => $campusValidation]);
+         return response()->json($campusValidation,200);
     }
 
     }
@@ -73,8 +75,10 @@ class CampusController extends Controller
         if (!$user) {
             return response()->json(['error' => 'Invalid token'], 401);
         } else {
-            $campusValidation = CampusValidation::with('user','campus')->get();
-            return response()->json(['data' => $campusValidation]);
+            $campusValidation = CampusValidation::with('user','campus','faculty')
+            ->where('id_users', $user->id_users)
+            ->get();
+            return response()->json($campusValidation,200);
         }
     }
 
@@ -193,7 +197,7 @@ class CampusController extends Controller
         ->find($id_campus);
 
         if ($campus) {
-            return response()->json(['data' => $campus],200);
+            return response()->json($campus,200);
         } else {
             return response()->json(['error' => 'No data campus']);
         }
@@ -205,9 +209,9 @@ class CampusController extends Controller
     {
         $campus = Campus::destroy($id_campus);
 
-        if ($campus === 0) {
-             return response()->json(['error' => 'Campus not found'], 404);
-        }
+        // if ($campus === 0) {
+        //      return response()->json(['error' => 'Campus not found'], 404);
+        // }
 
         return response()->json(['message' => "Campus with id ($id_campus) deleted successfully"], 200);
     }
@@ -246,6 +250,52 @@ class CampusController extends Controller
 
         return response()->json([
             'message' => 'Image uploaded successfully',
+            'data' => $uploadImageResponse
+        ]);
+    }
+
+    public function editCampusImages(Request $request)
+    {
+
+        $validator = Validator::make($request->all(), [
+            'id_images_campus' => 'required|string',
+            'images.*' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $idImagesCampus = $request->input('id_images_campus');
+
+        $existingImage = ImageCampus::findOrFail($idImagesCampus);
+
+        if (!$existingImage) {
+            return response()->json(['error' => 'Image not found'], 404);
+        }
+
+        // Delete the existing image file
+        Storage::disk('public')->delete($existingImage->icon);
+
+        // Upload the new image file
+        $uploadFolders = 'campus';
+        $newImage = $request->file('images');
+        $newImagePath = $newImage->store($uploadFolders, 'public');
+
+        // Update the image data in the database
+        $existingImage->update([
+            'icon' => Storage::disk('public')->url($newImagePath),
+        ]);
+
+        $uploadImageResponse = [
+            'id_images_campus' => $existingImage->id_images_campus,
+            'image_name' => basename($newImagePath),
+            'image_url' => Storage::disk('public')->url($newImagePath),
+            'mime' => $newImage->getClientMimeType(),
+        ];
+
+        return response()->json([
+            'message' => 'Image updated successfully',
             'data' => $uploadImageResponse
         ]);
     }
