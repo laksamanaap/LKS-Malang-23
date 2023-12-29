@@ -258,7 +258,8 @@ class CampusController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id_images_campus' => 'required|string',
+            'id_images_campus' => 'nullable|string',
+            'id_campus' => 'required|string',
             'images.*' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -270,12 +271,19 @@ class CampusController extends Controller
 
         $existingImage = ImageCampus::findOrFail($idImagesCampus);
 
-        if (!$existingImage) {
-            return response()->json(['error' => 'Image not found'], 404);
+        if ($idImagesCampus) {
+            $existingImage = ImageCampus::find($idImagesCampus);
+
+            if (!$existingImage) {
+                return response()->json(['error' => 'Image not found'], 404);
+            }
+
+            Storage::disk('public')->delete($existingImage->icon);
+        } else {
+            // Store new image in ImageCampus when no id_images_campus
+            $existingImage = new ImageCampus;
         }
 
-        // Delete the existing image file
-        Storage::disk('public')->delete($existingImage->icon);
 
         // Upload the new image file
         $uploadFolders = 'campus';
