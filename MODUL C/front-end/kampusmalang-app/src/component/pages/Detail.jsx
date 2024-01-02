@@ -49,7 +49,7 @@ export const Detail = () => {
               src={image_campus.length > 0 ? image_campus[0].icon : placeholder}
               alt=""
             />
-            <div className="detail-images-wrapper-grid">
+            {/* <div className="detail-images-wrapper-grid">
               {image_campus.length > 0 ? (
                 image_campus
                   .slice(1, 5)
@@ -69,7 +69,7 @@ export const Detail = () => {
                   <img src={placeholder} alt="" />
                 </>
               )}
-            </div>
+            </div> */}
           </div>
           <div class="d-flex align-items-center justify-content-between detail-short-desc">
             <div class="d-flex flex-column gap-2 detail-short-desc-top">

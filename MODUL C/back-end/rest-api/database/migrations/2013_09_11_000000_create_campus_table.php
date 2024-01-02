@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('biaya')->default('Rp. 300.000');
             $table->integer('phone');
             $table->timestamps();
-
+            $table->softDeletes(); // Add this line for soft deletes
 
         });
     }

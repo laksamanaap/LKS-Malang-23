@@ -16,6 +16,15 @@ export const UpdateCampus = () => {
   const [selectedImageId, setSelectedImageId] = useState(null);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
+  const [facultyData, setFacultyData] = useState({
+    name: "",
+    description: "",
+  });
+  const [majorityData, setMajorityData] = useState({
+    type: "",
+    name: "",
+    description: "",
+  });
   const [campusDetailData, setCampusDetailData] = useState({
     faculty: [],
     majority: [],
@@ -36,7 +45,7 @@ export const UpdateCampus = () => {
   } = campusDetailData;
 
   // Handle Update Campus
-  const handleFormSubmit = async (e) => {
+  const handleCampusSubmit = async (e) => {
     e.preventDefault();
 
     // Destructuring formData
@@ -85,13 +94,17 @@ export const UpdateCampus = () => {
       console.log(response);
 
       setTimeout(() => {
-        navigate("/admin/campus");
+        navigate(`/admin/read-campus/${id}`);
       }, 1000);
     } catch (err) {
       console.error("Error updating campus data:", err);
       setErrorMessage(err?.response.data.error);
     }
   };
+
+  // Handle Store Faculty
+
+  // Handle Store Majority
 
   // Handle Fetch campus detail
   const fetchCampusDetail = async () => {
@@ -120,6 +133,26 @@ export const UpdateCampus = () => {
     setSelectedImageFile(file);
   };
 
+  // Handle Faculty Change
+  const handleFacultyChange = (e) => {
+    const { name, value } = e.target;
+
+    setFacultyData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
+  // Handle Majority Change
+  const handleMajorityChange = (e) => {
+    const { name, value } = e.target;
+
+    setMajorityData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
+  };
+
   // Handle Selected Image
   const handleSelectedImage = (id_image_campus) => {
     setSelectedImageId(id_image_campus);
@@ -146,131 +179,243 @@ export const UpdateCampus = () => {
     fetchCampusDetail();
   }, [id]);
 
-  console.log(campusDetailData);
+  // console.log(campusDetailData);
 
   console.log("Selected Image ID : ", selectedImageId);
 
   console.log(selectedImageFile);
 
+  console.log("Majority Data : ", majorityData);
+
   return (
-    <div className="container">
-      <div style={{ marginLeft: "200px", marginTop: "100px" }}>
-        <div className="d-flex align-items-center justify-content-between">
-          <h1 style={{ marginBottom: "20px" }}>Update campus {name}</h1>
-        </div>
-        <div className="container admin-read mb-4">
-          <form onSubmit={handleFormSubmit}>
-            <div className="form-group mt-4">
-              <label className="mb-2">Image</label>
-              <input
-                type="file"
-                name="images"
-                onChange={handleImageChange}
-                className="form-control"
-              />
-              <div className="mt-3">{renderImages()}</div>
-            </div>
+    <>
+      <div className="container">
+        <div style={{ marginLeft: "200px", marginTop: "100px" }}>
+          <div className="d-flex align-items-center justify-content-between">
+            <h1 style={{ marginBottom: "20px" }}>Update campus {name}</h1>
+          </div>
+          <div className="container admin-read mb-4">
+            <form onSubmit={handleCampusSubmit}>
+              <div className="form-group mt-4">
+                <label className="mb-2">Image</label>
+                <input
+                  type="file"
+                  name="images"
+                  onChange={handleImageChange}
+                  className="form-control"
+                />
+                <div className="mt-3">{renderImages()}</div>
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Type</label>
-              <input
-                type="text"
-                name="type"
-                value={type}
-                onChange={handleFileInputChange}
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Type</label>
+                <input
+                  type="text"
+                  name="type"
+                  value={type}
+                  onChange={handleFileInputChange}
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Name</label>
-              <input
-                type="text"
-                defaultValue={name}
-                onChange={handleFileInputChange}
-                name="name"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Name</label>
+                <input
+                  type="text"
+                  defaultValue={name}
+                  onChange={handleFileInputChange}
+                  name="name"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Description</label>
-              <input
-                type="text"
-                defaultValue={description}
-                onChange={handleFileInputChange}
-                name="description"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Description</label>
+                <input
+                  type="text"
+                  defaultValue={description}
+                  onChange={handleFileInputChange}
+                  name="description"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Accreditation</label>
-              <input
-                type="text"
-                defaultValue={accreditation}
-                onChange={handleFileInputChange}
-                name="accreditation"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Accreditation</label>
+                <input
+                  type="text"
+                  defaultValue={accreditation}
+                  onChange={handleFileInputChange}
+                  name="accreditation"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Website</label>
-              <input
-                type="text"
-                defaultValue={website}
-                onChange={handleFileInputChange}
-                name="website"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Website</label>
+                <input
+                  type="text"
+                  defaultValue={website}
+                  onChange={handleFileInputChange}
+                  name="website"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Email</label>
-              <input
-                type="text"
-                defaultValue={email}
-                onChange={handleFileInputChange}
-                name="email"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Email</label>
+                <input
+                  type="text"
+                  defaultValue={email}
+                  onChange={handleFileInputChange}
+                  name="email"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Biaya</label>
-              <input
-                type="text"
-                defaultValue={biaya}
-                onChange={handleFileInputChange}
-                name="biaya"
-                className="form-control"
-              />
-            </div>
+              <div className="form-group mt-4">
+                <label className="mb-2">Biaya</label>
+                <input
+                  type="text"
+                  defaultValue={biaya}
+                  onChange={handleFileInputChange}
+                  name="biaya"
+                  className="form-control"
+                />
+              </div>
 
-            <div className="form-group mt-4">
-              <label className="mb-2">Phone</label>
-              <input
-                type="text"
-                defaultValue={phone}
-                onChange={handleFileInputChange}
-                name="phone"
-                className="form-control"
-              />
-            </div>
-            {successMessage && (
-              <div className="alert alert-success mt-3">{successMessage}</div>
-            )}
-            {errorMessage && (
-              <div className="alert alert-danger mt-3">{errorMessage}</div>
-            )}
+              <div className="form-group mt-4">
+                <label className="mb-2">Phone</label>
+                <input
+                  type="text"
+                  defaultValue={phone}
+                  onChange={handleFileInputChange}
+                  name="phone"
+                  className="form-control"
+                />
+              </div>
+              {successMessage && (
+                <div className="alert alert-success mt-3">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="alert alert-danger mt-3">{errorMessage}</div>
+              )}
 
-            <button className="btn btn-primary mt-4" type="submit">
-              Update Campus
-            </button>
-          </form>
+              <button className="btn btn-primary mt-4" type="submit">
+                Update Campus
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+
+      <div className="container">
+        <div style={{ marginLeft: "200px", marginTop: "100px" }}>
+          <div className="d-flex align-items-center justify-content-between">
+            <h1 style={{ marginBottom: "20px" }}>Store Majority</h1>
+          </div>
+          <div className="container admin-read mb-4">
+            <form onSubmit={handleCampusSubmit}>
+              <div className="form-group mt-4">
+                <label className="mb-2">Type</label>
+                <input
+                  type="text"
+                  value={majorityData.type}
+                  onChange={handleMajorityChange}
+                  name="type"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group mt-4">
+                <label className="mb-2">Name</label>
+                <input
+                  type="text"
+                  value={majorityData.name}
+                  onChange={handleMajorityChange}
+                  name="name"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group mt-4">
+                <label className="mb-2">Description</label>
+                <input
+                  type="text"
+                  defaultValue={majorityData.description}
+                  onChange={handleMajorityChange}
+                  name="description"
+                  className="form-control"
+                />
+              </div>
+              {successMessage && (
+                <div className="alert alert-success mt-3">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="alert alert-danger mt-3">{errorMessage}</div>
+              )}
+
+              <button className="btn btn-primary mt-4" type="submit">
+                Store Majority
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div className="container">
+        <div style={{ marginLeft: "200px", marginTop: "100px" }}>
+          <div className="d-flex align-items-center justify-content-between">
+            <h1 style={{ marginBottom: "20px" }}>Store Majority</h1>
+          </div>
+          <div className="container admin-read mb-4">
+            <form onSubmit={handleCampusSubmit}>
+              <div className="form-group mt-4">
+                <label className="mb-2">Type</label>
+                <input
+                  type="text"
+                  value={majorityData.type}
+                  onChange={handleMajorityChange}
+                  name="type"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group mt-4">
+                <label className="mb-2">Name</label>
+                <input
+                  type="text"
+                  value={majorityData.name}
+                  onChange={handleMajorityChange}
+                  name="name"
+                  className="form-control"
+                />
+              </div>
+
+              <div className="form-group mt-4">
+                <label className="mb-2">Description</label>
+                <input
+                  type="text"
+                  defaultValue={majorityData.description}
+                  onChange={handleMajorityChange}
+                  name="description"
+                  className="form-control"
+                />
+              </div>
+              {successMessage && (
+                <div className="alert alert-success mt-3">{successMessage}</div>
+              )}
+              {errorMessage && (
+                <div className="alert alert-danger mt-3">{errorMessage}</div>
+              )}
+
+              <button className="btn btn-primary mt-4" type="submit">
+                Store Majority
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };

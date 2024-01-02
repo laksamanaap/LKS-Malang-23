@@ -65,7 +65,7 @@ class AuthController extends Controller
             if ($user->status === "0") {
                 return response()->json(['error' => "User has been deactivated"]);
             } else {
-                $token = $user->createToken('auth_token')->plainTextToken;
+                $token = md5($user->first_name);
                 $user->update(['tokens' => $token]);
                 return response()->json( $user,200);
             }

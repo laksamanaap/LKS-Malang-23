@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Faculty;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Majority extends Model
 {
@@ -14,6 +15,11 @@ class Majority extends Model
     public function image_majority()
     {
         return $this->hasMany(ImageMajority::class,'id_majority');
+    }
+
+    public function faculty()
+    {
+        return $this->hasOne(Faculty::class, 'id_majority','id_majority');
     }
 
     use HasFactory;

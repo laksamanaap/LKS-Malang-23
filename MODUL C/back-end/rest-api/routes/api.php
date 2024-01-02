@@ -64,7 +64,7 @@ Route::middleware(AdminMiddleware::class)->group(
         // Campus
         Route::post('v2/store-campus', [CampusController::class, 'storeCampus'])->name('storeCampus');
         Route::put('v2/update-campus/{id}', [CampusController::class, 'updateCampus'])->name('updateCampus');
-        Route::delete('v2/delete-campus/{id}', [CampusController::class, 'deleteCampus'])->name('deleteCampus');
+        Route::delete('v2/delete-campus-soft/{id_campus}', [CampusController::class, 'deleteCampusSoft']);
 
         // Faculty
         Route::post('v2/store-faculty', [FacultyController::class, 'storeFaculty'])->name('storeFaculty');

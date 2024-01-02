@@ -204,16 +204,18 @@ class CampusController extends Controller
 
     }
 
-    // Delete Campus
-    public function deleteCampus($id_campus)
+    public function deleteCampusSoft($id_campus)
     {
-        $campus = Campus::destroy($id_campus);
+        $campus = Campus::find($id_campus);
 
-        // if ($campus === 0) {
-        //      return response()->json(['error' => 'Campus not found'], 404);
-        // }
+        if (!$campus) {
+            return response()->json(['error' => 'Campus not found'], 404);
+        }
 
-        return response()->json(['message' => "Campus with id ($id_campus) deleted successfully"], 200);
+        // Soft delete the campus
+        $campus->delete();
+
+        return response()->json(['message' => "Campus with id ($id_campus) soft-deleted successfully"], 200);
     }
 
     // Store Images Campus
@@ -258,8 +260,7 @@ class CampusController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'id_images_campus' => 'nullable|string',
-            'id_campus' => 'required|string',
+            'id_images_campus' => 'required|string',
             'images.*' => 'required|image:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -271,19 +272,12 @@ class CampusController extends Controller
 
         $existingImage = ImageCampus::findOrFail($idImagesCampus);
 
-        if ($idImagesCampus) {
-            $existingImage = ImageCampus::find($idImagesCampus);
-
-            if (!$existingImage) {
-                return response()->json(['error' => 'Image not found'], 404);
-            }
-
-            Storage::disk('public')->delete($existingImage->icon);
-        } else {
-            // Store new image in ImageCampus when no id_images_campus
-            $existingImage = new ImageCampus;
+        if (!$existingImage) {
+            return response()->json(['error' => 'Image not found'], 404);
         }
 
+        // Delete the existing image file
+        Storage::disk('public')->delete($existingImage->icon);
 
         // Upload the new image file
         $uploadFolders = 'campus';

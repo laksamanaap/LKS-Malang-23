@@ -23,24 +23,31 @@ export const CampusDashboard = () => {
     console.log(id_campus);
 
     const adminConfirm = window.confirm(
-      `Are you sure to delete campus with id ${id_campus}`
+      `Are you sure to delete this campus with id ${id_campus}`
     );
 
-    if (adminConfirm) {
-      client
-        .delete(`v2/delete-campus/${id_campus}`)
-        .then((response) => {
-          console.log(response);
+    try {
+      if (adminConfirm) {
+        client
+          .delete(`v2/delete-campus-soft/${id_campus}`)
+          .then((response) => {
+            console.log(response);
 
-          if (response.status === 200) {
-            console.log(`Campus with ID ${id_campus} deleted successfully.`);
-          } else {
-            console.error(`Failed to delete campus with ID ${id_campus}`);
-          }
-        })
-        .catch((err) => {
-          console.error(err.message);
-        });
+            if (response.status === 200) {
+              console.log(`Campus with ID ${id_campus} deleted successfully.`);
+              setTimeout(() => {
+                window.location.reload();
+              }, 1000);
+            } else {
+              console.error(`Failed to delete campus with ID ${id_campus}`);
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -57,7 +64,7 @@ export const CampusDashboard = () => {
             </a>
           </div>
           <table
-            className="table table-striped table-users"
+            className="table table-striped table-users mb-5"
             style={{ margin: "auto" }}
           >
             <thead>
@@ -94,13 +101,12 @@ export const CampusDashboard = () => {
                     >
                       Update
                     </a>
-                    <a
-                      href=""
+                    <button
                       className="btn btn-danger"
                       onClick={() => handleDeleteCampus(campus?.id_campus)}
                     >
                       Delete
-                    </a>
+                    </button>
                   </td>
                 </tr>
               ))}

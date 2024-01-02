@@ -9,7 +9,6 @@ export const CampusValidation = () => {
             <h1 style={{ marginBottom: "20px" }}>
               Manage student campus validation
             </h1>
-            <button className="btn btn-primary">Create</button>
           </div>
           <table
             class="table table-striped table-users"

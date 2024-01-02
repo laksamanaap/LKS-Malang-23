@@ -64,6 +64,20 @@ export const AdminSkin = () => {
                 <span>Campus Validation </span>
               </a>
               <a
+                href="/admin/faculty"
+                class="list-group-item list-group-item-action py-2 ripple"
+              >
+                <i class="fas fa-chart-area fa-fw me-3"></i>
+                <span>Faculty Dashboard</span>
+              </a>
+              <a
+                href="/admin/majority"
+                class="list-group-item list-group-item-action py-2 ripple"
+              >
+                <i class="fas fa-chart-area fa-fw me-3"></i>
+                <span>Majority Dashboard</span>
+              </a>
+              <a
                 href="#"
                 class="list-group-item list-group-item-action py-2 ripple"
               >

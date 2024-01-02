@@ -14,12 +14,14 @@ return new class extends Migration
         Schema::create('majority', function (Blueprint $table) {
             $table->id('id_majority');
             $table->unsignedBigInteger('id_campus');
+            $table->unsignedBigInteger('id_faculty');
             $table->string('type');
             $table->string('name');
             $table->longText('description');
             $table->timestamps();
 
             $table->foreign('id_campus')->references('id_campus')->on('campus');
+            $table->foreign('id_faculty')->references('id_faculty')->on('faculty');
             
         });
     }

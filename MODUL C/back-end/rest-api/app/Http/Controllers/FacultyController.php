@@ -15,7 +15,6 @@ class FacultyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_campus' => 'required|integer',
-            'id_majority' => 'required|integer',
             'name' => 'required|string',
             'description' => 'required|string',
         ]);
@@ -26,7 +25,6 @@ class FacultyController extends Controller
 
         $faculty = Faculty::create([
             'id_campus' => $request->input('id_campus'),
-            'id_majority' => $request->input('id_majority'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);
@@ -40,7 +38,6 @@ class FacultyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_campus' => 'required|integer',
-            'id_majority' => 'required|integer',
             'name' => 'required|string',
             'description' => 'required|string',
         ]);
@@ -59,7 +56,6 @@ class FacultyController extends Controller
         // Update the Faculty with the new data
         $Faculty->update([
             'id_campus' => $request->input('id_campus'),
-            'id_majority' => $request->input('id_majority'),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
         ]);

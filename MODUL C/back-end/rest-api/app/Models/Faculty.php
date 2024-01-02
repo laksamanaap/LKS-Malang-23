@@ -22,7 +22,7 @@ class Faculty extends Model
 
     public function majority()
     {
-        return $this->belongsTo(Majority::class, 'id_majority');
+        return $this->hasMany(Majority::class, 'id_faculty', 'id_faculty');
     }
 
 

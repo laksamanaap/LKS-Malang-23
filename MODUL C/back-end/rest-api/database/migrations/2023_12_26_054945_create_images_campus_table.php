@@ -17,7 +17,8 @@ return new class extends Migration
             $table->string('icon');
             $table->timestamps();
 
-            $table->foreign('id_campus')->references('id_campus')->on('campus');
+            // Soft deletes
+            $table->foreign('id_campus')->references('id_campus')->on('campus')->onDelete('cascade');
         });
     }
 

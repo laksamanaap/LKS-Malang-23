@@ -65,8 +65,21 @@ export const CreateCampus = () => {
       };
 
       const response = await client.post("v2/store-campus", campusPayload);
-      console.log(response);
+
+      const imagesPayload = new FormData();
+      imagesPayload.append("id_campus", String(response?.data.data.id_campus));
+      imagesPayload.append("images", selectedImageFile);
+
+      const imageResponse = await client.post(
+        "v2/store-campus-image",
+        imagesPayload
+      );
+
+      console.log("Respon Data : ", response?.data.data.id_campus);
+      console.log("Respon Image :", imageResponse);
+
       setSuccessMessage("Campus created succesfully!");
+
       setTimeout(() => {
         navigate("/admin/campus");
       }, 2000);
