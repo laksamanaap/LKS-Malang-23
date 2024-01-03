@@ -5,12 +5,67 @@ import client from "../../../utils/router";
 export const CampusValidation = () => {
   const [campusValidationData, setCampusValidationData] = useState([]);
 
+  // Handle campus validation
   const fetchCampusValidation = async () => {
     try {
       const response = await client.get("v1/show-all-campus-validation");
       setCampusValidationData(response?.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  // Handle Accept validation
+  const handleAcceptValidation = async (id_validation) => {
+    console.log(id_validation);
+
+    const adminConfirm = window.confirm(
+      `Are you sure to accept this user with id validation ${id_validation}`
+    );
+
+    if (adminConfirm) {
+      try {
+        const payload = {
+          id: id_validation,
+          status: 1,
+        };
+
+        const response = await client.put("v2/change-student-status", payload);
+        console.log(response);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+
+  // Handle Reject validation
+  const handleRejectValidation = async (id_validation) => {
+    console.log(id_validation);
+
+    const adminConfirm = window.confirm(
+      `Are you sure to reject this user with id validation ${id_validation}`
+    );
+
+    if (adminConfirm) {
+      try {
+        const payload = {
+          id: id_validation,
+          status: 2,
+        };
+
+        const response = await client.put("v2/change-student-status", payload);
+        console.log(response);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -67,8 +122,22 @@ export const CampusValidation = () => {
                       )}
                     </td>
                     <td className="d-flex flex-row gap-3">
-                      <div className="btn btn-primary">Accept</div>
-                      <div className="btn btn-danger">Reject</div>
+                      <div
+                        className="btn btn-primary"
+                        onClick={() =>
+                          handleAcceptValidation(campusValidation.id)
+                        }
+                      >
+                        Accept
+                      </div>
+                      <div
+                        className="btn btn-danger"
+                        onClick={() =>
+                          handleRejectValidation(campusValidation.id)
+                        }
+                      >
+                        Reject
+                      </div>
                     </td>
                   </tr>
                 ))

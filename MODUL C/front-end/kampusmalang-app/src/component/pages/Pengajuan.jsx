@@ -24,7 +24,7 @@ export const Pengajuan = () => {
     <div>
       <main id="submission">
         <div class="container submission">
-          <h1>Pengajuan Daftar</h1>
+          <h1> Daftar Pengajuan</h1>
           <div class="row gap-5 mt-5">
             {campusValidationData?.length > 0 ? (
               campusValidationData.map((campusValidation, index) => {
@@ -32,6 +32,9 @@ export const Pengajuan = () => {
                 return (
                   <div class="card" key={index}>
                     <div class="card-body">
+                      <div className="mb-4">
+                        <h5>#{index + 1}</h5>
+                      </div>
                       <span class="card-status d-flex align-items-center gap-2">
                         Status :{" "}
                         {campusValidation.status === 0 && (
