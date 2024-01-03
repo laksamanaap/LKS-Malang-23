@@ -38,7 +38,7 @@ $("#start-game").click(function () {
   $("#game-container").show();
   $("#start-container").hide();
 
-  $("#game-header").text(`Hi! ${getUsername}, Welcome to matching game!`);
+  $("#game-header").text(`Hi ${getUsername}!, Welcome to matching game!`);
 });
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -63,6 +63,7 @@ function getClassFromCard(card) {
 
 // check open cards when count = 2
 function checkOpenCards() {
+  // Cocok
   if (getClassFromCard(openCards[0]) === getClassFromCard(openCards[1])) {
     solvedCount++;
     openCards.forEach(function (card) {
@@ -70,7 +71,13 @@ function checkOpenCards() {
         card.toggleClass("open show match");
       });
     });
+    // Tidak Cocok
   } else {
+    // Ganjil 3
+    if (moves % 2 !== 0) {
+      console.log("dor star reduced!");
+      reduceStar();
+    }
     openCards.forEach(function (card) {
       card.animateCss("shake", function () {
         card.toggleClass("open show");
@@ -162,6 +169,8 @@ function endGame() {
     callback: function (value) {
       if (value) {
         resetGame();
+      } else {
+        window.location.reload();
       }
     },
   });
@@ -178,6 +187,12 @@ function initStars() {
 function reduceStar() {
   let stars = $(".fa-star");
   $(stars[stars.length - 1]).toggleClass("fa-star fa-star-o");
+
+  //   console.log(stars.length);
+
+  if (stars.length === 0) {
+    endGame();
+  }
 }
 
 // init game
