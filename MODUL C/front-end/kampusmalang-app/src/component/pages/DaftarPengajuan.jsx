@@ -14,7 +14,7 @@ export const DaftarPengajuan = () => {
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  const [selectedFaculty, setSelectedFaculty] = useState();
+  const [selectedFaculty, setSelectedFaculty] = useState("");
 
   const token = localStorage.getItem("token");
   const id_users = localStorage.getItem("id_users");
@@ -61,8 +61,9 @@ export const DaftarPengajuan = () => {
     }
   };
 
-  const handleFacultyChange = (event) => {
-    setSelectedFaculty(event.target.value);
+  const handleFacultyChange = (e) => {
+    console.log(e.target.value);
+    setSelectedFaculty(e.target.value);
   };
 
   const handleSubmitValidation = (e) => {
@@ -136,23 +137,24 @@ export const DaftarPengajuan = () => {
               Fakultas
             </label>
             <select
-              class="form-select"
+              className="form-select"
               aria-label="Default select example"
               value={selectedFaculty}
               onChange={handleFacultyChange}
             >
+              <option value="" disabled>
+                Pilih fakultas anda
+              </option>
               {faculty.length > 0 ? (
                 faculty.map((faculty, index) => (
-                  <>
-                    <option key={index} value={faculty.id_faculty}>
-                      {faculty.name}
-                    </option>
-                  </>
+                  <option key={index} value={faculty.id_faculty}>
+                    {faculty.name}
+                  </option>
                 ))
               ) : (
-                <select>
-                  <option value="">No faculty data</option>
-                </select>
+                <option value="" disabled>
+                  No faculty data
+                </option>
               )}
             </select>
           </div>

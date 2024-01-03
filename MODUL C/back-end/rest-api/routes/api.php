@@ -47,7 +47,11 @@ Route::middleware(UserMiddleware::class)->group(
         
         Route::post('v1/store-campus-validation', [CampusController::class, 'storeCampusValidation'])->name('storeCampusValidation');
         Route::get('v1/show-campus-validation', [CampusController::class, 'showCampusValidation'])->name('storeCampusValidation');
-        
+
+        Route::get("v1/show-all-campus-validation", [CampusController::class, 'showAllCampusValidation'])->name('showAllCampusValidation');        
+        Route::get("v1/show-accepted-campus-validation", [CampusController::class, 'showAcceptedCampusValidation'])->name('showAcceptedCampusValidation');
+        Route::get("v1/show-student/{id}", [CampusController::class, 'showSpecificStudent'])->name('showSpecificStudent');
+
         Route::get('v1/show-campus/{id_campus}', [CampusController::class, 'showCampus'])->name('showCampus');
     }
 );
@@ -69,8 +73,9 @@ Route::middleware(AdminMiddleware::class)->group(
         // Faculty
         Route::post('v2/store-faculty', [FacultyController::class, 'storeFaculty'])->name('storeFaculty');
         Route::put('v2/update-faculty/{id}', [FacultyController::class, 'updateFaculty'])->name('updateFaculty');
+        Route::get('v2/show-all-faculty', [FacultyController::class, 'showAllFaculty'])->name('showAllFaculty');
         Route::get('v2/show-faculty/{id}', [FacultyController::class, 'showFaculty'])->name('showFaculty');
-        Route::delete('v2/delete-faculty/{id}', [FacultyController::class, 'deleteFaculty'])->name('deleteFaculty');
+        Route::delete('v2/delete-faculty/{id}', [FacultyController::class, 'deleteFacultySoft'])->name('deleteFacultySoft');
 
         // Store Majority Image
         Route::post('v2/store-majority-image', [MajorityController::class, 'storeMajorityImages'])->name("storeMajorityImages");
@@ -80,6 +85,11 @@ Route::middleware(AdminMiddleware::class)->group(
         Route::put('v2/update-majority/{id}', [MajorityController::class, 'updateMajority'])->name('updateMajority');
         Route::delete('v2/delete-majority/{id}', [MajorityController::class, 'deleteMajority'])->name('deleteMajority');
 
+        // Show All Users
+        Route::get('v2/show-all-users', [AuthController::class, 'showAllUsers'])->name('showAllUsers');
+        Route::get('v2/show-user/{id}', [AuthController::class, 'showSpecificUser'])->name('showSpecificUser');
+
+        
         // Adding up the total student
         Route::get('v2/all-student-registered', [AuthController::class, 'sumStudentRegistered'])->name('sumStudentRegistered');
     
@@ -87,7 +97,7 @@ Route::middleware(AdminMiddleware::class)->group(
         Route::get('v2/student-status-count', [AuthController::class, 'sumStudentStatus'])->name('sumStudentStatus');
 
         // Change Member and student Status
-        Route::put('v2/change-member-status/{id}', [AuthController::class, 'changeMemberStatus'])->name('changeMemberStatus');
+        Route::put('v2/change-member-status', [AuthController::class, 'changeMemberStatus'])->name('changeMemberStatus');
         Route::put('v2/change-student-status', [AuthController::class, 'changeStudentStatus'])->name('changeStudentStatus');
 
         // Search student and member

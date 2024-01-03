@@ -24,6 +24,19 @@ import { CreateCampus } from "../component/pages/admin/campus/CreateCampus";
 import { ReadCampus } from "../component/pages/admin/campus/ReadCampus";
 import { UpdateCampus } from "../component/pages/admin/campus/UpdateCampus";
 
+// CRUD Faculty
+import { UpdateFaculty } from "../component/pages/admin/faculty/UpdateFaculty";
+
+// CRUD Majority
+import { UpdateMajority } from "../component/pages/admin/majority/UpdateMajority";
+
+// Student
+import { StudentDashboard } from "../component/pages/admin/StudentDashboard";
+import { ReadStudent } from "../component/pages/admin/student/ReadStudent";
+
+// Member
+import { ReadMember } from "../component/pages/admin/member/ReadMember";
+
 const routes = createBrowserRouter([
   {
     path: "/login",
@@ -116,17 +129,28 @@ const routes = createBrowserRouter([
       },
     ],
   },
-  // Admin
+  // Admin Student
   {
     path: "/admin/student",
     element: <AdminSkin />,
     children: [
       {
         path: "/admin/student",
-        element: <UserDashboard />,
+        element: <StudentDashboard />,
       },
     ],
   },
+  {
+    path: "/admin/read-student/:id",
+    element: <AdminSkin />,
+    children: [
+      {
+        path: "/admin/read-student/:id",
+        element: <ReadStudent />,
+      },
+    ],
+  },
+  // Admim Member
   {
     path: "/admin/member",
     element: <AdminSkin />,
@@ -134,6 +158,16 @@ const routes = createBrowserRouter([
       {
         path: "/admin/member",
         element: <MemberDashboard />,
+      },
+    ],
+  },
+  {
+    path: "/admin/read-member/:id",
+    element: <AdminSkin />,
+    children: [
+      {
+        path: "/admin/read-member/:id",
+        element: <ReadMember />,
       },
     ],
   },
@@ -202,12 +236,33 @@ const routes = createBrowserRouter([
     ],
   },
   {
+    path: "/admin/update-faculty/:id",
+    element: <AdminSkin />,
+    children: [
+      {
+        path: "/admin/update-faculty/:id",
+        element: <UpdateFaculty />,
+      },
+    ],
+  },
+  // Campus Majority
+  {
     path: "/admin/majority",
     element: <AdminSkin />,
     children: [
       {
         path: "/admin/majority",
         element: <MajorityDashboard />,
+      },
+    ],
+  },
+  {
+    path: "/admin/update-majority/:id",
+    element: <AdminSkin />,
+    children: [
+      {
+        path: "/admin/update-majority/:id",
+        element: <UpdateMajority />,
       },
     ],
   },

@@ -19,7 +19,7 @@ export const GuardSkin = () => {
       // Check if user is admin
       if (userRole === "admin") {
         setIsAdmin(true);
-        navigate("/admin/user");
+        navigate("/admin/campus");
       }
     }
   }, [isLoggedIn, navigate]);
@@ -68,18 +68,18 @@ export const GuardSkin = () => {
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Action
+                      <a class="dropdown-item" href="/pengajuan">
+                        Pengajuan
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Another action
+                      <a class="dropdown-item" href="/all-campus">
+                        Lihat semua kampus
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Something else here
+                      <a class="dropdown-item" href="/all-majority">
+                        Lihat semua jurusan
                       </a>
                     </li>
                   </ul>

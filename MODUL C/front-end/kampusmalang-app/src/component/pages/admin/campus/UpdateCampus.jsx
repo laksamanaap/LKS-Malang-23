@@ -12,23 +12,23 @@ export const UpdateCampus = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
 
+  const [facultySuccess, setFacultySuccess] = useState("");
+  const [facultyError, setFacultyError] = useState("");
+
   // Campus Detail Data
   const [selectedImageId, setSelectedImageId] = useState(null);
   const [selectedImageFile, setSelectedImageFile] = useState(null);
 
-  const [facultyData, setFacultyData] = useState({
-    name: "",
-    description: "",
-  });
-  const [majorityData, setMajorityData] = useState({
-    type: "",
-    name: "",
-    description: "",
-  });
   const [campusDetailData, setCampusDetailData] = useState({
     faculty: [],
     majority: [],
     image_campus: [],
+  });
+
+  // Faculty Data
+  const [facultyData, setFacultyData] = useState({
+    name: "",
+    description: "",
   });
 
   const {
@@ -103,8 +103,32 @@ export const UpdateCampus = () => {
   };
 
   // Handle Store Faculty
+  const handleCampusSubmitFaculty = async (e) => {
+    e.preventDefault();
 
-  // Handle Store Majority
+    try {
+      const { name, description } = facultyData;
+
+      const payload = {
+        id_campus: id,
+        name: name,
+        description: description,
+      };
+
+      const response = await client.post("v2/store-faculty", payload);
+      console.log(response);
+      setFacultySuccess(
+        `Success add faculty on campus id ${response?.data.data.id_campus}`
+      );
+
+      setTimeout(() => {
+        navigate(`/admin/read-campus/${id}`);
+      }, 1000);
+    } catch (err) {
+      console.log(err?.response.data.error);
+      setFacultyError(err?.response.data.error);
+    }
+  };
 
   // Handle Fetch campus detail
   const fetchCampusDetail = async () => {
@@ -143,16 +167,6 @@ export const UpdateCampus = () => {
     }));
   };
 
-  // Handle Majority Change
-  const handleMajorityChange = (e) => {
-    const { name, value } = e.target;
-
-    setMajorityData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
-
   // Handle Selected Image
   const handleSelectedImage = (id_image_campus) => {
     setSelectedImageId(id_image_campus);
@@ -185,7 +199,9 @@ export const UpdateCampus = () => {
 
   console.log(selectedImageFile);
 
-  console.log("Majority Data : ", majorityData);
+  console.log("Faculty Data : ", facultyData);
+
+  // console.log(facultyError.data.error);
 
   return (
     <>
@@ -312,27 +328,16 @@ export const UpdateCampus = () => {
       <div className="container">
         <div style={{ marginLeft: "200px", marginTop: "100px" }}>
           <div className="d-flex align-items-center justify-content-between">
-            <h1 style={{ marginBottom: "20px" }}>Store Majority</h1>
+            <h1 style={{ marginBottom: "20px" }}>Store Faculty</h1>
           </div>
           <div className="container admin-read mb-4">
-            <form onSubmit={handleCampusSubmit}>
-              <div className="form-group mt-4">
-                <label className="mb-2">Type</label>
-                <input
-                  type="text"
-                  value={majorityData.type}
-                  onChange={handleMajorityChange}
-                  name="type"
-                  className="form-control"
-                />
-              </div>
-
+            <form onSubmit={handleCampusSubmitFaculty}>
               <div className="form-group mt-4">
                 <label className="mb-2">Name</label>
                 <input
                   type="text"
-                  value={majorityData.name}
-                  onChange={handleMajorityChange}
+                  value={facultyData.name}
+                  onChange={handleFacultyChange}
                   name="name"
                   className="form-control"
                 />
@@ -342,75 +347,46 @@ export const UpdateCampus = () => {
                 <label className="mb-2">Description</label>
                 <input
                   type="text"
-                  defaultValue={majorityData.description}
-                  onChange={handleMajorityChange}
+                  defaultValue={facultyData.description}
+                  onChange={handleFacultyChange}
                   name="description"
                   className="form-control"
                 />
               </div>
-              {successMessage && (
-                <div className="alert alert-success mt-3">{successMessage}</div>
-              )}
-              {errorMessage && (
-                <div className="alert alert-danger mt-3">{errorMessage}</div>
+              {facultySuccess && (
+                <div className="alert alert-success mt-3">{facultySuccess}</div>
               )}
 
-              <button className="btn btn-primary mt-4" type="submit">
-                Store Majority
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-
-      <div className="container">
-        <div style={{ marginLeft: "200px", marginTop: "100px" }}>
-          <div className="d-flex align-items-center justify-content-between">
-            <h1 style={{ marginBottom: "20px" }}>Store Majority</h1>
-          </div>
-          <div className="container admin-read mb-4">
-            <form onSubmit={handleCampusSubmit}>
-              <div className="form-group mt-4">
-                <label className="mb-2">Type</label>
-                <input
-                  type="text"
-                  value={majorityData.type}
-                  onChange={handleMajorityChange}
-                  name="type"
-                  className="form-control"
-                />
-              </div>
-
-              <div className="form-group mt-4">
-                <label className="mb-2">Name</label>
-                <input
-                  type="text"
-                  value={majorityData.name}
-                  onChange={handleMajorityChange}
-                  name="name"
-                  className="form-control"
-                />
-              </div>
-
-              <div className="form-group mt-4">
-                <label className="mb-2">Description</label>
-                <input
-                  type="text"
-                  defaultValue={majorityData.description}
-                  onChange={handleMajorityChange}
-                  name="description"
-                  className="form-control"
-                />
-              </div>
-              {successMessage && (
-                <div className="alert alert-success mt-3">{successMessage}</div>
+              {facultyError && (
+                <div className="alert alert-danger mt-3">
+                  {facultyError.name &&
+                    Array.isArray(facultyError.name) &&
+                    facultyError.name.length > 0 && (
+                      <>
+                        {facultyError.name.map((error, index) => (
+                          <p key={index}>{error}</p>
+                        ))}
+                      </>
+                    )}
+                </div>
               )}
-              {errorMessage && (
-                <div className="alert alert-danger mt-3">{errorMessage}</div>
+
+              {facultyError && (
+                <div className="alert alert-danger mt-3">
+                  {facultyError.description &&
+                    Array.isArray(facultyError.description) &&
+                    facultyError.description.length > 0 && (
+                      <>
+                        {facultyError.description.map((error, index) => (
+                          <p key={index}>{error}</p>
+                        ))}
+                      </>
+                    )}
+                </div>
               )}
 
               <button className="btn btn-primary mt-4" type="submit">
-                Store Majority
+                Store Faculty
               </button>
             </form>
           </div>

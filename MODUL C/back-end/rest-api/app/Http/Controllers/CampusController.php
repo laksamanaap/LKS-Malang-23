@@ -82,6 +82,49 @@ class CampusController extends Controller
         }
     }
 
+    // Show All Campus Validation
+    public function showAllCampusValidation(Request $request)
+    {
+        $campusValidation = CampusValidation::with('user', 'campus', 'faculty')
+        ->whereIn('status', [0, 2])
+        ->get();
+
+        if (!$campusValidation) {
+            return response()->json(['message' => 'Theres no campus validation']);
+        }
+
+        return response()->json($campusValidation,200);
+
+    }
+
+    // Show Accepted Campus Validation
+    public function showAcceptedCampusValidation(Request $request)
+    {
+         $campusValidation = CampusValidation::with('user', 'campus', 'faculty')
+        ->where('status', 1)
+        ->get();
+
+         if (!$campusValidation) {
+            return response()->json(['message' => 'Theres no campus validation']);
+        }
+
+        return response()->json($campusValidation,200);
+    }
+
+
+    // Show Specific Student
+    public function showSpecificStudent(Request $request, $id_users) {
+         
+        $campusValidation = CampusValidation::where('id_users', $id_users)
+         ->with('user', 'campus', 'faculty')
+         ->first();
+
+         if (!$campusValidation) {
+            return response()->json(['message' => 'Theres no campus validation']);
+        }
+
+        return response()->json([$campusValidation],200);
+    }
 
     // Show All Campus
     public function showAllCampus()
@@ -98,7 +141,7 @@ class CampusController extends Controller
     // Show All Majority
     public function showAllMajority()
     {
-        $majority = Majority::with('image_majority')->get();
+        $majority = Majority::with('image_majority','faculty','campus')->get();
 
         if($majority) {
             return response()->json( $majority);

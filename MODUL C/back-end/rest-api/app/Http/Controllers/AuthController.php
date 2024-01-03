@@ -63,7 +63,7 @@ class AuthController extends Controller
             $user = Auth::user();
 
             if ($user->status === "0") {
-                return response()->json(['error' => "User has been deactivated"]);
+                return response()->json(['error' => "User has been deactivated"],422);
             } else {
                 $token = md5($user->first_name);
                 $user->update(['tokens' => $token]);
@@ -95,9 +95,10 @@ class AuthController extends Controller
 
     // 0 : Not Active
     // 1 : Active
-    public function changeMemberStatus(Request $request, $id_users)
+    public function changeMemberStatus(Request $request)
     {
         $validator = Validator::make($request->all(), [
+            'id' => 'required|integer',
             'status' => ['required', Rule::in([0, 1, 2])], // Validate that status is one of [0, 1, 2]
         ]);
 
@@ -105,7 +106,7 @@ class AuthController extends Controller
             return response()->json(['error' => $validator->errors()], 400);
         }
 
-        $user = User::find($id_users);
+        $user = User::find($request->input('id'));
 
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
@@ -168,18 +169,51 @@ class AuthController extends Controller
     }
 
     // Sum all student status (accepted or rejected)
+    // 0 : Pending
+    // 1 : Accepted
+    // 2 : Rejected
     public function sumStudentStatus()
     {
 
+        $studentCountPending = CampusValidation::where('status',0)->count();
         $studentCountAccepted = CampusValidation::where('status',1)->count();
-        $studentCountRejected = CampusValidation::where('status',0)->count();
+        $studentCountRejected = CampusValidation::where('status',2)->count();
 
         return response()->json([
             'data' => [
                 'accepted_users' => $studentCountAccepted,
-                'rejected_users' => $studentCountRejected,
+                'pending_users' => $studentCountPending,
+                'rejected_users' => $studentCountRejected
             ],
         ], 200);
+
+    }
+
+    // Show all users
+    public function showAllUsers(Request $request)
+    {
+
+        $user = User::where('role', 'user')->get();
+
+        if (!$user) {
+            return response()->json(['error' => 'Theres no user data!'],404);
+        }
+
+        return response()->json(['data' => $user],200);
+
+    }
+
+    // Show specific users
+    public function showSpecificUser(Request $request, $id_users)
+    {
+
+        $user = User::find($id_users);
+
+        if (!$user) {
+            return response()->json(['error' => 'No users with $id_users found!'],404);
+        }
+
+        return response()->json($user,200);
 
     }
 

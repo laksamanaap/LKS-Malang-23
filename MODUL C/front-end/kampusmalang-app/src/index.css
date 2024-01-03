@@ -420,7 +420,24 @@ body {
   font-size: 16px;
 }
 
+.card-status {
+  font-size: 16px;
+}
+
 #submission .card-status.success {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: var(--primary) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+.card-status.success {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -446,7 +463,33 @@ body {
   font-size: 12px;
 }
 
+.card-status.info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: rgb(39, 39, 238) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
 #submission .card-status.rejected {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Watchword-bold", sans-serif !important;
+  padding: 2px;
+  background-color: var(--danger) !important;
+  color: var(--white);
+  border-radius: 8px;
+  min-width: 70px;
+  font-size: 12px;
+}
+
+.card-status.rejected {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -508,4 +551,11 @@ body {
   padding: 36px;
   background-color: white;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+
+.card-text {
+  overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }

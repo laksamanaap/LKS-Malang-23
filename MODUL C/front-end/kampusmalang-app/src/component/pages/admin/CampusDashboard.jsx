@@ -3,7 +3,6 @@ import client from "../../../utils/router";
 
 export const CampusDashboard = () => {
   const [campusData, setCampusData] = useState([]);
-  const [showModal, setShowModal] = useState(false);
 
   // Try catch version
   const fetchCampusData = async () => {
@@ -79,37 +78,45 @@ export const CampusDashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {campusData.map((campus, index) => (
-                <tr key={index}>
-                  <th scope="row">{index + 1}</th>
-                  <td>{campus.name}</td>
-                  <td>{campus.type}</td>
-                  <td>{campus.accreditation}</td>
-                  <td>{campus.website}</td>
-                  <td>{campus.email}</td>
+              {campusData.length > 0 ? (
+                campusData.map((campus, index) => (
+                  <tr key={index}>
+                    <th scope="row">{index + 1}</th>
+                    <td>{campus.name}</td>
+                    <td>{campus.type}</td>
+                    <td>{campus.accreditation}</td>
+                    <td>{campus.website}</td>
+                    <td>{campus.email}</td>
 
-                  <td className="d-flex flex-row gap-3">
-                    <a
-                      href={`/admin/read-campus/${campus?.id_campus}`}
-                      className="btn btn-primary"
-                    >
-                      Read
-                    </a>
-                    <a
-                      href={`/admin/update-campus/${campus?.id_campus}`}
-                      className="btn btn-secondary"
-                    >
-                      Update
-                    </a>
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleDeleteCampus(campus?.id_campus)}
-                    >
-                      Delete
-                    </button>
+                    <td className="d-flex flex-row gap-3">
+                      <a
+                        href={`/admin/read-campus/${campus?.id_campus}`}
+                        className="btn btn-primary"
+                      >
+                        Read
+                      </a>
+                      <a
+                        href={`/admin/update-campus/${campus?.id_campus}`}
+                        className="btn btn-secondary"
+                      >
+                        Update
+                      </a>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleDeleteCampus(campus?.id_campus)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan="7" className="text-center">
+                    There's no data campus available
                   </td>
                 </tr>
-              ))}
+              )}
             </tbody>
           </table>
         </div>

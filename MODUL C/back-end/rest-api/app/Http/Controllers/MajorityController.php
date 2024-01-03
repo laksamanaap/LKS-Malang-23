@@ -43,7 +43,6 @@ class MajorityController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_campus' => 'required|integer',
-            'id_faculty' => 'required|integer',
             'type' => 'required|string',
             'name' => 'required|string',
             'description' => 'required|string',
@@ -63,7 +62,6 @@ class MajorityController extends Controller
         // Update the Majority with the new data
         $Majority->update([
             'id_campus' => $request->input('id_campus'),
-            'id_faculty' => $request->input('id_faculty'),
             'type' => $request->input('type'),
             'name' => $request->input('name'),
             'description' => $request->input('description')

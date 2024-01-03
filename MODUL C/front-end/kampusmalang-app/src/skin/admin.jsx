@@ -6,12 +6,30 @@ export const AdminSkin = () => {
   const navigate = useNavigate();
 
   const userRole = localStorage.getItem("role");
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+
+  console.log(isLoggedIn);
 
   useEffect(() => {
-    if (userRole != "admin") {
+    if (!isLoggedIn) {
+      navigate("/");
+    } else if (userRole != "admin") {
       navigate("/");
     }
   }, [userRole]);
+
+  const handleLogout = () => {
+    console.log("logouted");
+    localStorage.removeItem("email");
+    localStorage.removeItem("id_users");
+    localStorage.removeItem("role");
+    localStorage.removeItem("tanggal_lahir");
+    localStorage.removeItem("token");
+    localStorage.removeItem("first_name");
+    localStorage.removeItem("last_name");
+
+    setIsLoggedIn(false);
+  };
 
   return (
     <>
@@ -77,13 +95,13 @@ export const AdminSkin = () => {
                 <i class="fas fa-chart-area fa-fw me-3"></i>
                 <span>Majority Dashboard</span>
               </a>
-              <a
-                href="#"
+              <div
                 class="list-group-item list-group-item-action py-2 ripple"
+                onClick={handleLogout}
               >
                 <i class="fas fa-users fa-fw me-3"></i>
                 <span>Logout</span>
-              </a>
+              </div>
             </div>
           </div>
         </nav>

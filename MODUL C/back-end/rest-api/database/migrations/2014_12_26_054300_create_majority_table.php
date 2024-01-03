@@ -20,8 +20,8 @@ return new class extends Migration
             $table->longText('description');
             $table->timestamps();
 
-            $table->foreign('id_campus')->references('id_campus')->on('campus');
-            $table->foreign('id_faculty')->references('id_faculty')->on('faculty');
+            $table->foreign('id_campus')->references('id_campus')->on('campus')->onDelete('cascade');
+            $table->foreign('id_faculty')->references('id_faculty')->on('faculty')->onDelete('cascade');
             
         });
     }

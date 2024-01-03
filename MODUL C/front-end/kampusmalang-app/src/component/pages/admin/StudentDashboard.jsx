@@ -2,15 +2,45 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import client from "../../../utils/router";
 
-export const CampusValidation = () => {
+export const StudentDashboard = () => {
   const [campusValidationData, setCampusValidationData] = useState([]);
 
+  // Fetch campus validation
   const fetchCampusValidation = async () => {
     try {
-      const response = await client.get("v1/show-all-campus-validation");
+      const response = await client.get("v1/show-accepted-campus-validation");
       setCampusValidationData(response?.data);
     } catch (err) {
       console.log(err);
+    }
+  };
+
+  // Handle Reject Student
+  const handleRejectStudent = async (id_validation) => {
+    console.log(id_validation);
+
+    const adminConfirm = window.confirm(
+      `Are you sure to reject student with id validation ${id_validation}`
+    );
+
+    if (adminConfirm) {
+      const payload = {
+        id: id_validation,
+        status: 2,
+      };
+
+      try {
+        const response = await client.put("v2/change-student-status", payload);
+        console.log(response);
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+
+        alert("Student has been removed on campus validation dashboard!");
+      } catch (err) {
+        console.log(err);
+      }
     }
   };
 
@@ -67,8 +97,18 @@ export const CampusValidation = () => {
                       )}
                     </td>
                     <td className="d-flex flex-row gap-3">
-                      <div className="btn btn-primary">Accept</div>
-                      <div className="btn btn-danger">Reject</div>
+                      <a
+                        className="btn btn-primary"
+                        href={`/admin/read-student/${campusValidation.id}`}
+                      >
+                        Read
+                      </a>
+                      <button
+                        className="btn btn-danger"
+                        onClick={() => handleRejectStudent(campusValidation.id)}
+                      >
+                        Reject
+                      </button>
                     </td>
                   </tr>
                 ))

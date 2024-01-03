@@ -20,7 +20,7 @@ class FacultyController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['error' => $validator->errors()], 400);
+            return response()->json(['error' => $validator->errors()], 422);
         }
 
         $faculty = Faculty::create([
@@ -38,8 +38,8 @@ class FacultyController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'id_campus' => 'required|integer',
-            'name' => 'required|string',
-            'description' => 'required|string',
+            'name' => 'string',
+            'description' => 'string',
         ]);
 
         if ($validator->fails()) {
@@ -82,15 +82,43 @@ class FacultyController extends Controller
 
     }
 
-    // Delete Faculty
-    public function deleteFaculty($id_Faculty)
+    // Show All Faculty
+    public function showAllFaculty(Request $request)
     {
-        $Faculty = Faculty::destroy($id_Faculty);
 
-        if ($Faculty === 0) {
-             return response()->json(['error' => 'Faculty not found'], 404);
+        $Faculty = Faculty::with('campus','majority')->get();
+
+        if ($Faculty) {
+            return response()->json(['data' => $Faculty],200);
+        } else {
+            return response()->json(['error' => 'No data Faculty']);
         }
 
-        return response()->json(['message' => "Faculty with id ($id_Faculty) deleted successfully"], 200);
+    }
+
+    // // Delete Faculty
+    // public function deleteFaculty($id_Faculty)
+    // {
+    //     $Faculty = Faculty::destroy($id_Faculty);
+
+    //     if ($Faculty === 0) {
+    //          return response()->json(['error' => 'Faculty not found'], 404);
+    //     }
+
+    //     return response()->json(['message' => "Faculty with id ($id_Faculty) deleted successfully"], 200);
+    // }
+
+    public function deleteFacultySoft($id_faculty)
+    {
+        $faculty = Faculty::find($id_faculty);
+
+        if (!$faculty) {
+            return response()->json(['error' => 'faculty not found'], 404);
+        }
+
+        // Soft delete the faculty
+        $faculty->delete();
+
+        return response()->json(['message' => "faculty with id ($id_faculty) soft-deleted successfully"], 200);
     }
 }

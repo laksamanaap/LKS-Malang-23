@@ -53,18 +53,18 @@ export const GuestSkin = () => {
                   </button>
                   <ul class="dropdown-menu">
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Action
+                      <a class="dropdown-item" href="/pengajuan">
+                        Pengajuan
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Another action
+                      <a class="dropdown-item" href="/all-campus">
+                        Lihat semua kampus
                       </a>
                     </li>
                     <li>
-                      <a class="dropdown-item" href="#">
-                        Something else here
+                      <a class="dropdown-item" href="/all-majority">
+                        Lihat semua jurusan
                       </a>
                     </li>
                   </ul>
