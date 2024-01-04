@@ -207,6 +207,8 @@ function reduceStar() {
 function initGame() {
   populateCards();
   initStars();
+  timerPtr = setTimeout(startTimer, 1000);
+
   $(".card").click(cardClick);
 }
 
