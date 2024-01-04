@@ -28,7 +28,9 @@ $(".card-background-tile img").click(function () {
 });
 
 $("#start-game").click(function () {
-  console.log("started");
+  started = true;
+  timeCount = 0;
+  timerPtr = setTimeout(startTimer, 1000);
 
   const username = $("#username").val();
   localStorage.setItem("username", username);
@@ -73,11 +75,16 @@ function checkOpenCards() {
     });
     // Tidak Cocok
   } else {
-    // Ganjil 3
-    if (moves % 2 !== 0) {
+    // Kelipatan 3
+    console.log("moves gagal : ", moves);
+    if (moves % 3 === 0) {
       console.log("dor star reduced!");
       reduceStar();
     }
+    // if (moves % 2 !== 0) {
+    //   console.log("dor star reduced!");
+    //   reduceStar();
+    // }
     openCards.forEach(function (card) {
       card.animateCss("shake", function () {
         card.toggleClass("open show");
@@ -96,6 +103,7 @@ function startTimer() {
   timeCount += 1;
   $("#timer").html(timeCount);
   timerPtr = setTimeout(startTimer, 1000);
+  console.log(timerPtr);
 }
 
 // increment move count
@@ -116,11 +124,11 @@ function cardClick(event) {
     return;
   }
   // start game if needed
-  if (!started) {
-    started = true;
-    timeCount = 0;
-    timerPtr = setTimeout(startTimer, 1000);
-  }
+  // if (!started) {
+  //   started = true;
+  //   timeCount = 0;
+  //   timerPtr = setTimeout(startTimer, 1000);
+  // }
   // cards can be flipped
   if (openCards.length < 2) {
     $(this).toggleClass("open show");
